@@ -17,19 +17,15 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const client = await pool.connect()
-          const result = await client.query(
-            "SELECT id, email, password, name, role FROM admin_users WHERE email = $1",
-            [credentials.email],
-          )
-          client.release()
+          const result = await pool.query("SELECT * FROM admin_users WHERE email = $1", [credentials.email])
 
-          if (result.rows.length === 0) {
+          const user = result.rows[0]
+
+          if (!user) {
             return null
           }
 
-          const user = result.rows[0]
-          const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password_hash)
 
           if (!isPasswordValid) {
             return null
@@ -50,24 +46,30 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
+    maxAge: 24 * 60 * 60, // 24 hours
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+    maxAge: 24 * 60 * 60, // 24 hours
   },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = (user as any).role
+        token.role = user.role
       }
       return token
     },
     async session({ session, token }) {
-      if (token && session.user) {
-        ;(session.user as any).id = token.sub!
-        ;(session.user as any).role = token.role as string
+      if (token) {
+        session.user.id = token.sub as string
+        session.user.role = token.role as string
       }
       return session
     },
   },
   pages: {
     signIn: "/admin/login",
+    error: "/admin/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
 }

@@ -1,48 +1,74 @@
-export interface ApiResponse<T = any> {
-  success: boolean
-  message: string
-  data?: T
-  errors?: Record<string, string>
-  timestamp: string
+export interface User {
+  id: string
+  email: string
+  name: string
+  role: string
+}
+
+export interface PortfolioData {
+  id?: number
+  name: string
+  title: string
+  bio: string
+  email: string
+  phone: string
+  location: string
+  website: string
+  github: string
+  linkedin: string
+  twitter: string
+  instagram: string
+  created_at?: Date
+  updated_at?: Date
+}
+
+export interface Project {
+  id: number
+  title: string
+  description: string
+  technologies: string[]
+  github_url?: string
+  live_url?: string
+  image_url?: string
+  featured: boolean
+  created_at: Date
+  updated_at: Date
+}
+
+export interface Skill {
+  id: number
+  name: string
+  category: string
+  proficiency: number
+  created_at: Date
+  updated_at: Date
 }
 
 export interface ContactSubmission {
   id: number
-  firstName: string
-  lastName: string
+  name: string
   email: string
   subject: string
   message: string
-  createdAt: Date
-  isRead: boolean
-  isReplied: boolean
+  status: "new" | "read" | "replied"
+  created_at: Date
+  updated_at: Date
 }
 
-export interface PortfolioData {
-  id: number
-  name: string
-  title: string
-  description: string
-  location: string
-  socialLinks: {
-    instagram: string
-    facebook: string
-    twitter: string
-    youtube: string
+export interface ApiResponse<T = any> {
+  success: boolean
+  data?: T
+  error?: string
+  message?: string
+}
+
+export interface PaginatedResponse<T> extends ApiResponse<T[]> {
+  pagination: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
   }
-  updatedAt: Date
-}
-
-export interface ProjectData {
-  id: number
-  title: string
-  description: string
-  imageUrl: string
-  technologies: string[]
-  githubUrl?: string
-  liveUrl?: string
-  featured: boolean
-  createdAt: Date
 }
 
 // NextAuth types extension

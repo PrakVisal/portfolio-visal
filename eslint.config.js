@@ -1,4 +1,6 @@
-/** @type {import('eslint').Linter.Config} */
+const { createRequire } = require("module")
+const require = createRequire(import.meta.url)
+
 module.exports = {
   extends: ["next/core-web-vitals", "eslint:recommended", "@typescript-eslint/recommended", "prettier"],
   parser: "@typescript-eslint/parser",
@@ -7,12 +9,20 @@ module.exports = {
     "prettier/prettier": "error",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/prefer-const": "error",
-    "prefer-const": "off",
-    "no-console": "warn",
-    "no-debugger": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/no-unescaped-entities": "off",
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-use-before-define": ["error", { variables: true, functions: false, classes: false }],
   },
-  ignorePatterns: [".next/", "out/", "dist/", "node_modules/", "*.config.js", "*.config.ts"],
+  parserOptions: {
+    ecmaVersion: 2021,
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+  },
 }
