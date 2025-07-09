@@ -1,16 +1,77 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "portfolio-nextjs",
+  "version": "1.0.0",
   "private": true,
+  "description": "A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS",
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "typescript",
+    "tailwindcss",
+    "react",
+    "web-development"
+  ],
+  "homepage": "https://yourportfolio.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/portfolio-nextjs.git"
+  },
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com",
+    "url": "https://yourwebsite.com"
+  },
   "scripts": {
     "build": "next build",
+    "clean": "rimraf .next out dist",
+    "db:admin": "node -e \"const { pool } = require('./lib/db'); const fs = require('fs'); const sql = fs.readFileSync('./scripts/create-admin-user.sql', 'utf8'); pool.query(sql).then(() => { console.log('Admin user created'); process.exit(0); }).catch(err => { console.error('Admin creation failed:', err); process.exit(1); });\"",
+    "db:init": "node -e \"const { pool } = require('./lib/db'); const fs = require('fs'); const sql = fs.readFileSync('./scripts/init-database.sql', 'utf8'); pool.query(sql).then(() => { console.log('Database initialized'); process.exit(0); }).catch(err => { console.error('Database init failed:', err); process.exit(1); });\"",
+    "db:migrate": "npm run db:init && npm run db:admin",
+    "db:status": "node -e \"const { pool } = require('./lib/db'); pool.query('SELECT NOW()').then(() => { console.log('Database connected'); process.exit(0); }).catch(err => { console.error('Database connection failed:', err); process.exit(1); });\"",
+    "deps:check": "npm outdated",
+    "deps:update": "npm update",
     "dev": "next dev",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') !== -1) throw new Error('Please use npm instead of yarn')\"",
+    "postinstall": "npm run validate",
     "lint": "next lint",
-    "start": "next start"
+    "lint:fix": "next lint --fix",
+    "prepare": "husky install",
+    "security:audit": "npm audit",
+    "security:fix": "npm audit fix",
+    "start": "next start",
+    "test:format": "npm run format:check",
+    "test:lint": "npm run lint",
+    "test:type": "npm run type-check",
+    "type-check": "tsc --noEmit",
+    "validate": "npm run type-check && npm run lint && npm run format:check"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "dependencies": {
     "@auth/core": "latest",
-    "@hookform/resolvers": "^3.9.1",
+    "@hookform/resolvers": "^3.3.2",
+    "@next-auth/prisma-adapter": "^1.0.7",
     "@radix-ui/react-accordion": "latest",
     "@radix-ui/react-alert-dialog": "latest",
     "@radix-ui/react-aspect-ratio": "latest",
@@ -30,6 +91,7 @@
     "@radix-ui/react-scroll-area": "latest",
     "@radix-ui/react-select": "latest",
     "@radix-ui/react-separator": "latest",
+    "@radix-ui/react-sheet": "^1.0.4",
     "@radix-ui/react-slider": "latest",
     "@radix-ui/react-slot": "latest",
     "@radix-ui/react-switch": "latest",
@@ -38,13 +100,17 @@
     "@radix-ui/react-toggle": "latest",
     "@radix-ui/react-toggle-group": "latest",
     "@radix-ui/react-tooltip": "latest",
-    "autoprefixer": "^10.4.20",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.10.4",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.16",
     "bcryptjs": "latest",
     "child_process": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "latest",
-    "date-fns": "4.1.0",
+    "date-fns": "^2.30.0",
     "embla-carousel-react": "latest",
     "fs": "latest",
     "input-otp": "latest",
@@ -64,16 +130,34 @@
     "recharts": "latest",
     "sonner": "latest",
     "tailwind-merge": "^2.5.5",
+    "tailwindcss": "^3.3.6",
     "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.3.3",
     "vaul": "latest",
     "zod": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",
+    "@types/nodemailer": "^6.4.14",
+    "@types/pg": "^8.10.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "eslint": "^8.55.0",
+    "eslint-config-next": "^14.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "postcss": "^8.5",
-    "tailwindcss": "^3.4.17",
+    "prettier": "^3.1.1",
+    "rimraf": "^5.0.5",
     "typescript": "^5"
+  },
+  "packageManager": "npm@9.6.7",
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.6.7"
   }
 }

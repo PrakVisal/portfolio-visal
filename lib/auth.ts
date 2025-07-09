@@ -54,14 +54,14 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.role
+        token.role = (user as any).role
       }
       return token
     },
     async session({ session, token }) {
-      if (token) {
-        session.user.id = token.sub!
-        session.user.role = token.role as string
+      if (token && session.user) {
+        ;(session.user as any).id = token.sub!
+        ;(session.user as any).role = token.role as string
       }
       return session
     },
@@ -69,4 +69,5 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/admin/login",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 }
