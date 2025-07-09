@@ -24,10 +24,10 @@
   "scripts": {
     "build": "next build",
     "clean": "rimraf .next out dist",
-    "db:admin": "psql $DATABASE_URL -f scripts/create-admin-user.sql",
-    "db:init": "psql $DATABASE_URL -f scripts/init-database.sql",
+    "db:admin": "node scripts/create-admin.js",
+    "db:init": "node scripts/init-db.js",
     "db:migrate": "npm run db:init && npm run db:admin",
-    "db:status": "psql $DATABASE_URL -c 'SELECT NOW()'",
+    "db:status": "node scripts/check-db.js",
     "deps:check": "npm outdated",
     "deps:update": "npm update",
     "dev": "next dev",

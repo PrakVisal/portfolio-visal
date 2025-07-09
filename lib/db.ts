@@ -8,7 +8,7 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000,
 })
 
-// Test the connection
+// Test connection on startup
 pool.on("connect", () => {
   console.log("Connected to PostgreSQL database")
 })
@@ -20,7 +20,7 @@ pool.on("error", (err) => {
 
 export { pool }
 
-// Helper function to execute queries
+// Helper function for queries
 export async function query(text: string, params?: any[]) {
   const start = Date.now()
   try {
@@ -35,13 +35,13 @@ export async function query(text: string, params?: any[]) {
 }
 
 // Helper function to get a single row
-export async function queryRow(text: string, params?: any[]) {
+export async function getOne(text: string, params?: any[]) {
   const result = await query(text, params)
-  return result.rows[0]
+  return result.rows[0] || null
 }
 
 // Helper function to get multiple rows
-export async function queryRows(text: string, params?: any[]) {
+export async function getMany(text: string, params?: any[]) {
   const result = await query(text, params)
   return result.rows
 }

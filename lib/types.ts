@@ -5,21 +5,30 @@ export interface User {
   role: string
 }
 
+export interface ContactSubmission {
+  id: number
+  name: string
+  email: string
+  subject: string
+  message: string
+  status: "new" | "read" | "replied"
+  created_at: string
+  updated_at: string
+}
+
 export interface PortfolioData {
-  id?: number
+  id: number
   name: string
   title: string
   bio: string
   email: string
   phone: string
   location: string
-  website: string
-  github: string
   linkedin: string
+  github: string
   twitter: string
   instagram: string
-  created_at?: Date
-  updated_at?: Date
+  updated_at: string
 }
 
 export interface Project {
@@ -31,8 +40,7 @@ export interface Project {
   live_url?: string
   image_url?: string
   featured: boolean
-  created_at: Date
-  updated_at: Date
+  created_at: string
 }
 
 export interface Skill {
@@ -40,19 +48,7 @@ export interface Skill {
   name: string
   category: string
   proficiency: number
-  created_at: Date
-  updated_at: Date
-}
-
-export interface ContactSubmission {
-  id: number
-  name: string
-  email: string
-  subject: string
-  message: string
-  status: "new" | "read" | "replied"
-  created_at: Date
-  updated_at: Date
+  created_at: string
 }
 
 export interface ApiResponse<T = any> {
@@ -62,16 +58,6 @@ export interface ApiResponse<T = any> {
   message?: string
 }
 
-export interface PaginatedResponse<T> extends ApiResponse<T[]> {
-  pagination: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-  }
-}
-
-// NextAuth types extension
 declare module "next-auth" {
   interface Session {
     user: {

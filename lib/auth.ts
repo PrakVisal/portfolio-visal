@@ -20,7 +20,6 @@ export const authOptions: NextAuthOptions = {
           const result = await pool.query("SELECT * FROM admin_users WHERE email = $1", [credentials.email])
 
           const user = result.rows[0]
-
           if (!user) {
             return null
           }
@@ -46,11 +45,9 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 24 hours
   },
   jwt: {
     secret: process.env.NEXTAUTH_SECRET,
-    maxAge: 24 * 60 * 60, // 24 hours
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -69,7 +66,6 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/admin/login",
-    error: "/admin/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
 }
