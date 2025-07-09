@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
-import { pool } from "./db"
+import { sql } from "./db"
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,14 +17,20 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const result = await pool.query("SELECT * FROM admin_users WHERE email = $1", [credentials.email])
+          // Query user from database
+          const users = await sql`
+            SELECT id, email, password, role, name 
+            FROM users 
+            WHERE email = ${credentials.email}
+          `
 
-          const user = result.rows[0]
+          const user = users[0]
 
           if (!user) {
             return null
           }
 
+          // Verify password
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
 
           if (!isPasswordValid) {
@@ -38,7 +44,7 @@ export const authOptions: NextAuthOptions = {
             role: user.role,
           }
         } catch (error) {
-          console.error("Authentication error:", error)
+          console.error("Auth error:", error)
           return null
         }
       },
@@ -46,9 +52,6 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
-  },
-  jwt: {
-    secret: process.env.NEXTAUTH_SECRET,
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -59,7 +62,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.sub as string
+        session.user.id = token.sub!
         session.user.role = token.role as string
       }
       return session
@@ -68,4 +71,5 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/admin/login",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 }

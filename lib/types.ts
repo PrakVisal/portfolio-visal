@@ -1,14 +1,15 @@
 export interface User {
-  id: string
+  id: number
   email: string
   name: string
-  role: string
+  password: string
+  role: "admin" | "user"
   created_at: Date
   updated_at: Date
 }
 
-export interface PortfolioData {
-  id: string
+export interface Portfolio {
+  id: number
   name: string
   title: string
   bio: string
@@ -26,7 +27,7 @@ export interface PortfolioData {
 }
 
 export interface Project {
-  id: string
+  id: number
   title: string
   description: string
   image: string
@@ -40,7 +41,7 @@ export interface Project {
 }
 
 export interface Skill {
-  id: string
+  id: number
   name: string
   category: string
   level: number
@@ -51,7 +52,7 @@ export interface Skill {
 }
 
 export interface Contact {
-  id: string
+  id: number
   name: string
   email: string
   subject: string
@@ -61,52 +62,18 @@ export interface Contact {
   updated_at: Date
 }
 
-export interface ApiResponse<T = any> {
-  success: boolean
-  data?: T
-  message?: string
-  error?: string
-}
-
-export interface ContactFormData {
-  name: string
-  email: string
-  subject: string
-  message: string
-}
-
-export interface ProjectFormData {
+export interface Service {
+  id: number
   title: string
   description: string
-  image: string
-  technologies: string[]
-  github_url: string
-  live_url: string
-  featured: boolean
-}
-
-export interface SkillFormData {
-  name: string
-  category: string
-  level: number
   icon: string
+  features: string[]
+  order_index: number
+  created_at: Date
+  updated_at: Date
 }
 
-export interface PortfolioFormData {
-  name: string
-  title: string
-  bio: string
-  email: string
-  phone: string
-  location: string
-  website: string
-  github: string
-  linkedin: string
-  twitter: string
-  resume_url: string
-  profile_image: string
-}
-
+// NextAuth types extension
 declare module "next-auth" {
   interface Session {
     user: {

@@ -1,33 +1,35 @@
-import { Pool } from "pg"
+import postgres from "postgres"
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+// Create a connection to PostgreSQL using the pure JavaScript client
+const sql = postgres(process.env.DATABASE_URL || "postgresql://localhost:5432/portfolio", {
+  host: process.env.DB_HOST || "localhost",
+  port: Number.parseInt(process.env.DB_PORT || "5432"),
+  database: process.env.DB_NAME || "portfolio",
+  username: process.env.DB_USER || "postgres",
+  password: process.env.DB_PASSWORD || "",
+  ssl: process.env.NODE_ENV === "production" ? "require" : false,
   max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  idle_timeout: 30,
+  connect_timeout: 60,
+  onnotice: () => {}, // Suppress notices
 })
 
-// Test connection on startup
-pool.on("connect", () => {
-  console.log("Connected to PostgreSQL database")
-})
-
-pool.on("error", (err) => {
-  console.error("Unexpected error on idle client", err)
-  process.exit(-1)
-})
-
-export { pool }
+export { sql }
 
 // Helper function for queries
-export async function query(text: string, params?: any[]) {
+export async function query(text: string, params: any[] = []) {
   const start = Date.now()
   try {
-    const res = await pool.query(text, params)
+    // Convert parameterized query to postgres format
+    let formattedQuery = text
+    params.forEach((param, index) => {
+      formattedQuery = formattedQuery.replace(`$${index + 1}`, param)
+    })
+
+    const result = await sql.unsafe(formattedQuery)
     const duration = Date.now() - start
-    console.log("Executed query", { text, duration, rows: res.rowCount })
-    return res
+    console.log("Executed query", { text, duration, rows: result.length })
+    return { rows: result, rowCount: result.length }
   } catch (error) {
     console.error("Database query error:", error)
     throw error
@@ -35,13 +37,25 @@ export async function query(text: string, params?: any[]) {
 }
 
 // Helper function to get a single row
-export async function getOne(text: string, params?: any[]) {
+export async function getOne(text: string, params: any[] = []) {
   const result = await query(text, params)
   return result.rows[0] || null
 }
 
 // Helper function to get multiple rows
-export async function getMany(text: string, params?: any[]) {
+export async function getMany(text: string, params: any[] = []) {
   const result = await query(text, params)
   return result.rows
+}
+
+// Test connection function
+export async function testConnection() {
+  try {
+    await sql`SELECT NOW()`
+    console.log("✅ Database connected successfully")
+    return true
+  } catch (error) {
+    console.error("❌ Database connection failed:", error)
+    return false
+  }
 }

@@ -22,11 +22,13 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(loginUrl)
     }
 
-    // If token exists, allow access
-    return NextResponse.next()
+    // Check if user has admin role
+    if (token.role !== "admin") {
+      const loginUrl = new URL("/admin/login", request.url)
+      return NextResponse.redirect(loginUrl)
+    }
   }
 
-  // For all other routes, continue normally
   return NextResponse.next()
 }
 

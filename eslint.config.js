@@ -5,14 +5,13 @@ const compat = new FlatCompat({
 })
 
 module.exports = [
-  ...compat.extends("next/core-web-vitals"),
-  ...compat.extends("prettier"),
+  ...compat.extends("next/core-web-vitals", "@typescript-eslint/recommended", "prettier"),
   {
     rules: {
-      "@next/next/no-img-element": "off",
-      "react/no-unescaped-entities": "off",
-      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-explicit-any": "warn",
+      "prefer-const": "error",
+      "no-var": "error",
     },
   },
 ]

@@ -1,34 +1,31 @@
-const { Pool } = require("pg")
+const postgres = require("postgres")
 
 async function checkDatabase() {
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-  })
+  const sql = postgres(process.env.DATABASE_URL || "postgresql://localhost:5432/portfolio")
 
   try {
     console.log("🔄 Checking database connection...")
 
-    const result = await pool.query("SELECT NOW() as current_time")
-    console.log("✅ Database connection successful!")
-    console.log("🕐 Current time:", result.rows[0].current_time)
+    const result = await sql`SELECT NOW() as current_time`
+    console.log("✅ Database connected successfully!")
+    console.log("🕐 Current time:", result[0].current_time)
 
     // Check if tables exist
-    const tablesResult = await pool.query(`
+    const tables = await sql`
       SELECT table_name 
       FROM information_schema.tables 
       WHERE table_schema = 'public'
-      ORDER BY table_name
-    `)
+    `
 
     console.log("📋 Available tables:")
-    tablesResult.rows.forEach((row) => {
-      console.log(`  - ${row.table_name}`)
+    tables.forEach((table) => {
+      console.log(`  - ${table.table_name}`)
     })
   } catch (error) {
     console.error("❌ Database connection failed:", error)
     process.exit(1)
   } finally {
-    await pool.end()
+    await sql.end()
   }
 }
 
