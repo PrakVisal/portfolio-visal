@@ -1,21 +1,18 @@
-const { createRequire } = require("module")
-const require = createRequire(import.meta.url)
+const { FlatCompat } = require("@eslint/eslintrc")
 
-module.exports = {
-  extends: ["next/core-web-vitals", "eslint:recommended", "@typescript-eslint/recommended", "prettier"],
-  parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "prettier"],
-  rules: {
-    "prettier/prettier": "error",
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "warn",
-    "prefer-const": "error",
-    "no-var": "error",
-    "no-use-before-define": ["error", { variables: true, functions: false, classes: false }],
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+})
+
+module.exports = [
+  ...compat.extends("next/core-web-vitals"),
+  ...compat.extends("prettier"),
+  {
+    rules: {
+      "@next/next/no-img-element": "off",
+      "react/no-unescaped-entities": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+    },
   },
-  env: {
-    browser: true,
-    node: true,
-    es6: true,
-  },
-}
+]

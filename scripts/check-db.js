@@ -8,10 +8,22 @@ async function checkDatabase() {
   try {
     console.log("🔄 Checking database connection...")
 
-    const result = await pool.query("SELECT NOW() as current_time, version() as version")
-    console.log("✅ Database connected successfully!")
-    console.log("⏰ Current time:", result.rows[0].current_time)
-    console.log("🗄️ Version:", result.rows[0].version.split(" ")[0] + " " + result.rows[0].version.split(" ")[1])
+    const result = await pool.query("SELECT NOW() as current_time")
+    console.log("✅ Database connection successful!")
+    console.log("🕐 Current time:", result.rows[0].current_time)
+
+    // Check if tables exist
+    const tablesResult = await pool.query(`
+      SELECT table_name 
+      FROM information_schema.tables 
+      WHERE table_schema = 'public'
+      ORDER BY table_name
+    `)
+
+    console.log("📋 Available tables:")
+    tablesResult.rows.forEach((row) => {
+      console.log(`  - ${row.table_name}`)
+    })
   } catch (error) {
     console.error("❌ Database connection failed:", error)
     process.exit(1)

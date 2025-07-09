@@ -20,11 +20,12 @@ export const authOptions: NextAuthOptions = {
           const result = await pool.query("SELECT * FROM admin_users WHERE email = $1", [credentials.email])
 
           const user = result.rows[0]
+
           if (!user) {
             return null
           }
 
-          const isPasswordValid = await bcrypt.compare(credentials.password, user.password_hash)
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
 
           if (!isPasswordValid) {
             return null
@@ -37,7 +38,7 @@ export const authOptions: NextAuthOptions = {
             role: user.role,
           }
         } catch (error) {
-          console.error("Auth error:", error)
+          console.error("Authentication error:", error)
           return null
         }
       },
@@ -67,5 +68,4 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/admin/login",
   },
-  secret: process.env.NEXTAUTH_SECRET,
 }
