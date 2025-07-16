@@ -1,13 +1,13 @@
 import postgres from 'postgres'
 
-// Create a connection to PostgreSQL using the pure JavaScript client
-const sql = postgres(process.env.DATABASE_URL || 'postgresql://localhost:5432/portfolio', {
-  host: process.env.DB_HOST || 'localhost',
-  port: Number.parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME || 'portfolio',
-  username: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || '123',
-  ssl: process.env.NODE_ENV === 'production' ? 'require' : false,
+const databaseUrl = process.env.DATABASE_URL
+if (!databaseUrl) {
+  throw new Error('DATABASE_URL environment variable is not set')
+}
+
+// Create a connection to PostgreSQL using the Neon connection string
+const sql = postgres(databaseUrl, {
+  ssl: 'require', // Neon requires SSL
   max: 20,
   idle_timeout: 30,
   connect_timeout: 60,

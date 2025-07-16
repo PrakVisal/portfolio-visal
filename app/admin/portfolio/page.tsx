@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
-import type { PortfolioData } from '@/lib/types'
+import type { Portfolio } from '@/lib/types'
 import { Save } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -21,7 +21,7 @@ export default function PortfolioPage() {
   const router = useRouter()
   const { toast } = useToast()
 
-  const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null)
+  const [portfolioData, setPortfolioData] = useState<Portfolio | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
 
@@ -191,7 +191,7 @@ export default function PortfolioPage() {
                   <Input
                     id="instagram"
                     type="url"
-                    value={portfolioData.socialLinks.instagram}
+                    value={portfolioData.socialLinks.instagram || ""}
                     onChange={e => handleInputChange('socialLinks.instagram', e.target.value)}
                     placeholder="https://instagram.com/username"
                   />
@@ -202,7 +202,7 @@ export default function PortfolioPage() {
                   <Input
                     id="facebook"
                     type="url"
-                    value={portfolioData.socialLinks.facebook}
+                    value={portfolioData.socialLinks.facebook || ""}
                     onChange={e => handleInputChange('socialLinks.facebook', e.target.value)}
                     placeholder="https://facebook.com/username"
                   />
@@ -213,7 +213,7 @@ export default function PortfolioPage() {
                   <Input
                     id="twitter"
                     type="url"
-                    value={portfolioData.socialLinks.twitter}
+                    value={portfolioData.socialLinks.twitter || ""}
                     onChange={e => handleInputChange('socialLinks.twitter', e.target.value)}
                     placeholder="https://twitter.com/username"
                   />
@@ -224,7 +224,7 @@ export default function PortfolioPage() {
                   <Input
                     id="youtube"
                     type="url"
-                    value={portfolioData.socialLinks.youtube}
+                    value={portfolioData.socialLinks.youtube || ""}
                     onChange={e => handleInputChange('socialLinks.youtube', e.target.value)}
                     placeholder="https://youtube.com/channel/..."
                   />

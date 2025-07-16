@@ -1,4 +1,4 @@
-import { pool } from '@/lib/db'
+import { sql } from '@/lib/db'
 import { createSuccessResponse, handleApiError } from '@/lib/utils/api-response'
 import { NextResponse } from 'next/server'
 
@@ -7,22 +7,15 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     const id = Number.parseInt(params.id)
     const body = await request.json()
 
-    const client = await pool.connect()
-
     const updates: string[] = []
     const values: any[] = []
-    let paramCount = 1
 
     if (typeof body.isRead === 'boolean') {
-      updates.push(`is_read = $${paramCount}`)
-      values.push(body.isRead)
-      paramCount++
+      updates.push(sql`is_read = ${body.isRead}`.toString())
     }
 
     if (typeof body.isReplied === 'boolean') {
-      updates.push(`is_replied = $${paramCount}`)
-      values.push(body.isReplied)
-      paramCount++
+      updates.push(sql`is_replied = ${body.isReplied}`.toString())
     }
 
     if (updates.length === 0) {
@@ -31,29 +24,21 @@ export async function PATCH(request: Request, { params }: { params: { id: string
       })
     }
 
-    updates.push(`updated_at = CURRENT_TIMESTAMP`)
-    values.push(id)
+    updates.push('updated_at = CURRENT_TIMESTAMP')
 
-    const result = await client.query(
-      `
-      UPDATE contact_submissions 
-      SET ${updates.join(', ')}
-      WHERE id = $${paramCount}
-      RETURNING *
-    `,
-      values
+    const result = await sql.unsafe(
+      `UPDATE contact_submissions SET ${updates.join(', ')} WHERE id = $1 RETURNING *`,
+      [id]
     )
 
-    client.release()
-
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json(handleApiError(new Error('Contact submission not found')), {
         status: 404,
       })
     }
 
     return NextResponse.json(
-      createSuccessResponse('Contact submission updated successfully', result.rows[0])
+      createSuccessResponse('Contact submission updated successfully', result[0])
     )
   } catch (error) {
     return NextResponse.json(handleApiError(error), { status: 500 })
@@ -64,20 +49,13 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   try {
     const id = Number.parseInt(params.id)
 
-    const client = await pool.connect()
-
-    const result = await client.query(
-      `
+    const result = await sql`
       DELETE FROM contact_submissions 
-      WHERE id = $1
+      WHERE id = ${id}
       RETURNING id
-    `,
-      [id]
-    )
+    `
 
-    client.release()
-
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json(handleApiError(new Error('Contact submission not found')), {
         status: 404,
       })

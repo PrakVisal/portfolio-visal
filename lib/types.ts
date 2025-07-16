@@ -16,6 +16,13 @@ export interface Portfolio {
   email: string
   phone: string
   location: string
+  socialLinks: {
+    instagram?: string | null
+    facebook?: string | null
+    twitter?: string | null
+    youtube?: string | null
+  }
+  description: string
   website: string
   github: string
   linkedin: string

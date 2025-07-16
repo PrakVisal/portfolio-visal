@@ -2,6 +2,11 @@ import { sql } from '@/lib/db'
 import { createSuccessResponse, handleApiError } from '@/lib/utils/api-response'
 import { NextResponse } from 'next/server'
 
+// export async function getUsers() {
+//   const res = await pool.query('SELECT * FROM users');
+//   return res.rows;
+// }
+
 export async function GET() {
   try {
     const result = await sql`

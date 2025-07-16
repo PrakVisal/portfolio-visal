@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { MessageSquare, Users, FolderOpen, TrendingUp } from 'lucide-react'
+import LoadingSpinner from '@/components/portfolio/loading-spinner'
 
 interface DashboardStats {
   totalContacts: number
@@ -62,7 +63,7 @@ export default function AdminDashboard() {
   }, [session])
 
   if (status === 'loading') {
-    return <div>Loading...</div>
+    return <LoadingSpinner/>
   }
 
   if (!session) {
