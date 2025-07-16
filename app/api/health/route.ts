@@ -1,23 +1,23 @@
-import { pool } from "@/lib/db"
-import { createSuccessResponse, handleApiError } from "@/lib/utils/api-response"
-import { NextResponse } from "next/server"
+import { sql } from '@/lib/db'
+import { createSuccessResponse, handleApiError } from '@/lib/utils/api-response'
+import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
     // Test database connection
-    const client = await pool.connect()
-    await client.query("SELECT 1")
-    client.release()
+    await sql`SELECT 1`
 
     return NextResponse.json(
-      createSuccessResponse("Portfolio API is running successfully!", {
-        status: "healthy",
-        database: "connected",
+      createSuccessResponse('Portfolio API is running successfully!', {
+        status: 'healthy',
+        database: 'connected',
         timestamp: new Date().toISOString(),
-        version: "1.0.0",
-      }),
+        version: '1.0.0',
+      })
     )
   } catch (error) {
-    return NextResponse.json(handleApiError(new Error("Database connection failed")), { status: 503 })
+    return NextResponse.json(handleApiError(new Error('Database connection failed')), {
+      status: 503,
+    })
   }
 }

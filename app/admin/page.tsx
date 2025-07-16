@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import AdminHeader from "@/components/admin/header"
-import AdminSidebar from "@/components/admin/sidebar"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { MessageSquare, Users, FolderOpen, TrendingUp } from "lucide-react"
+import AdminHeader from '@/components/admin/header'
+import AdminSidebar from '@/components/admin/sidebar'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { MessageSquare, Users, FolderOpen, TrendingUp } from 'lucide-react'
 
 interface DashboardStats {
   totalContacts: number
@@ -27,8 +27,8 @@ export default function AdminDashboard() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/admin/login")
+    if (status === 'unauthenticated') {
+      router.push('/admin/login')
     }
   }, [status, router])
 
@@ -36,8 +36,8 @@ export default function AdminDashboard() {
     const fetchStats = async () => {
       try {
         const [contactsRes, projectsRes] = await Promise.all([
-          fetch("/api/admin/stats/contacts"),
-          fetch("/api/admin/stats/projects"),
+          fetch('/api/admin/stats/contacts'),
+          fetch('/api/admin/stats/projects'),
         ])
 
         const contactsData = await contactsRes.json()
@@ -50,7 +50,7 @@ export default function AdminDashboard() {
           recentActivity: contactsData.recent || 0,
         })
       } catch (error) {
-        console.error("Failed to fetch stats:", error)
+        console.error('Failed to fetch stats:', error)
       } finally {
         setIsLoading(false)
       }
@@ -61,7 +61,7 @@ export default function AdminDashboard() {
     }
   }, [session])
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return <div>Loading...</div>
   }
 
@@ -72,19 +72,21 @@ export default function AdminDashboard() {
   return (
     <div className="flex h-screen bg-gray-50">
       <AdminSidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col overflow-hidden">
         <AdminHeader title="Dashboard" description="Welcome to your portfolio admin panel" />
 
         <main className="flex-1 overflow-y-auto p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Contacts</CardTitle>
                 <MessageSquare className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? "..." : stats.totalContacts}</div>
-                <p className="text-xs text-muted-foreground">{stats.unreadContacts} unread messages</p>
+                <div className="text-2xl font-bold">{isLoading ? '...' : stats.totalContacts}</div>
+                <p className="text-xs text-muted-foreground">
+                  {stats.unreadContacts} unread messages
+                </p>
               </CardContent>
             </Card>
 
@@ -94,7 +96,7 @@ export default function AdminDashboard() {
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? "..." : stats.unreadContacts}</div>
+                <div className="text-2xl font-bold">{isLoading ? '...' : stats.unreadContacts}</div>
                 <p className="text-xs text-muted-foreground">Require attention</p>
               </CardContent>
             </Card>
@@ -105,7 +107,7 @@ export default function AdminDashboard() {
                 <FolderOpen className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? "..." : stats.totalProjects}</div>
+                <div className="text-2xl font-bold">{isLoading ? '...' : stats.totalProjects}</div>
                 <p className="text-xs text-muted-foreground">In portfolio</p>
               </CardContent>
             </Card>
@@ -116,13 +118,13 @@ export default function AdminDashboard() {
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? "..." : stats.recentActivity}</div>
+                <div className="text-2xl font-bold">{isLoading ? '...' : stats.recentActivity}</div>
                 <p className="text-xs text-muted-foreground">Last 7 days</p>
               </CardContent>
             </Card>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <Card>
               <CardHeader>
                 <CardTitle>Recent Contact Messages</CardTitle>
@@ -142,15 +144,15 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <button className="w-full text-left p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                  <button className="w-full rounded-lg p-3 text-left transition-colors hover:bg-gray-100">
                     <div className="font-medium">Update Portfolio Content</div>
                     <div className="text-sm text-gray-500">Edit your personal information</div>
                   </button>
-                  <button className="w-full text-left p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                  <button className="w-full rounded-lg p-3 text-left transition-colors hover:bg-gray-100">
                     <div className="font-medium">Add New Project</div>
                     <div className="text-sm text-gray-500">Showcase your latest work</div>
                   </button>
-                  <button className="w-full text-left p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                  <button className="w-full rounded-lg p-3 text-left transition-colors hover:bg-gray-100">
                     <div className="font-medium">View Analytics</div>
                     <div className="text-sm text-gray-500">Check portfolio performance</div>
                   </button>

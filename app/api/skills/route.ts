@@ -1,13 +1,11 @@
-import { pool } from "@/lib/db"
-import { createSuccessResponse, handleApiError } from "@/lib/utils/api-response"
-import { NextResponse } from "next/server"
+import { sql } from '@/lib/db'
+import { createSuccessResponse, handleApiError } from '@/lib/utils/api-response'
+import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const category = searchParams.get("category")
-
-    const client = await pool.connect()
+    const category = searchParams.get('category')
 
     let query = `
       SELECT 
@@ -17,24 +15,26 @@ export async function GET(request: Request) {
         proficiency_level,
         display_order,
         created_at
-      FROM skills
-    `
-
+      FROM skills`
     const params: any[] = []
 
     if (category) {
-      query += " WHERE category = $1"
+      query += ' WHERE category = $1'
       params.push(category)
     }
 
-    query += " ORDER BY display_order ASC, name ASC"
+    query += ' ORDER BY display_order ASC, name ASC'
 
-    const result = await client.query(query, params)
-    client.release()
+    let result
+    if (params.length > 0) {
+      result = await sql.unsafe(query, params)
+    } else {
+      result = await sql.unsafe(query)
+    }
 
     // Group by category if no specific category requested
     if (!category) {
-      const groupedSkills = result.rows.reduce(
+      const groupedSkills = result.reduce(
         (acc, skill) => {
           if (!acc[skill.category]) {
             acc[skill.category] = []
@@ -42,13 +42,15 @@ export async function GET(request: Request) {
           acc[skill.category].push(skill)
           return acc
         },
-        {} as Record<string, any[]>,
+        {} as Record<string, any[]>
       )
 
-      return NextResponse.json(createSuccessResponse("Skills retrieved successfully", groupedSkills))
+      return NextResponse.json(
+        createSuccessResponse('Skills retrieved successfully', groupedSkills)
+      )
     }
 
-    return NextResponse.json(createSuccessResponse("Skills retrieved successfully", result.rows))
+    return NextResponse.json(createSuccessResponse('Skills retrieved successfully', result))
   } catch (error) {
     return NextResponse.json(handleApiError(error), { status: 500 })
   }

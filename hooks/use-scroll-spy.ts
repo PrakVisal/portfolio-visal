@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 export function useScrollSpy(sections: string[]) {
-  const [activeSection, setActiveSection] = useState(sections[0] || "home")
+  const [activeSection, setActiveSection] = useState(sections[0] || 'home')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,8 +19,8 @@ export function useScrollSpy(sections: string[]) {
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [sections])
 
   return activeSection

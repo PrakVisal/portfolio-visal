@@ -1,4 +1,4 @@
-import type { ApiResponse } from "@/lib/types"
+import type { ApiResponse } from '@/lib/types'
 
 export function createSuccessResponse<T>(message: string, data?: T): ApiResponse<T> {
   return {
@@ -19,11 +19,11 @@ export function createErrorResponse(message: string, errors?: Record<string, str
 }
 
 export function handleApiError(error: unknown): ApiResponse {
-  console.error("API Error:", error)
+  console.error('API Error:', error)
 
   if (error instanceof Error) {
     return createErrorResponse(error.message)
   }
 
-  return createErrorResponse("An unexpected error occurred")
+  return createErrorResponse('An unexpected error occurred')
 }

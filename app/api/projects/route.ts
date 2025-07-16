@@ -1,14 +1,12 @@
-import { pool } from "@/lib/db"
-import { createSuccessResponse, handleApiError } from "@/lib/utils/api-response"
-import { NextResponse } from "next/server"
+import { sql } from '@/lib/db'
+import { createSuccessResponse, handleApiError } from '@/lib/utils/api-response'
+import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const featured = searchParams.get("featured") === "true"
-    const limit = Number.parseInt(searchParams.get("limit") || "10")
-
-    const client = await pool.connect()
+    const featured = searchParams.get('featured') === 'true'
+    const limit = Number.parseInt(searchParams.get('limit') || '10')
 
     let query = `
       SELECT 
@@ -21,26 +19,29 @@ export async function GET(request: Request) {
         live_url,
         featured,
         created_at
-      FROM projects
-    `
+      FROM projects`
 
     const params: any[] = []
 
     if (featured) {
-      query += " WHERE featured = TRUE"
+      query += ' WHERE featured = TRUE'
     }
 
-    query += " ORDER BY display_order ASC, created_at DESC"
+    query += ' ORDER BY display_order ASC, created_at DESC'
 
     if (limit > 0) {
       params.push(limit)
       query += ` LIMIT $${params.length}`
     }
 
-    const result = await client.query(query, params)
-    client.release()
+    let result
+    if (params.length > 0) {
+      result = await sql.unsafe(query, params)
+    } else {
+      result = await sql.unsafe(query)
+    }
 
-    return NextResponse.json(createSuccessResponse("Projects retrieved successfully", result.rows))
+    return NextResponse.json(createSuccessResponse('Projects retrieved successfully', result))
   } catch (error) {
     return NextResponse.json(handleApiError(error), { status: 500 })
   }
@@ -50,12 +51,18 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    const { title, description, imageUrl, technologies, githubUrl, liveUrl, featured = false, displayOrder = 0 } = body
+    const {
+      title,
+      description,
+      imageUrl,
+      technologies,
+      githubUrl,
+      liveUrl,
+      featured = false,
+      displayOrder = 0,
+    } = body
 
-    const client = await pool.connect()
-
-    const result = await client.query(
-      `
+    const result = await sql`
       INSERT INTO projects (
         title, 
         description, 
@@ -66,15 +73,13 @@ export async function POST(request: Request) {
         featured, 
         display_order
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      VALUES (${title}, ${description}, ${imageUrl}, ${technologies}, ${githubUrl}, ${liveUrl}, ${featured}, ${displayOrder})
       RETURNING *
-    `,
-      [title, description, imageUrl, technologies, githubUrl, liveUrl, featured, displayOrder],
-    )
+    `
 
-    client.release()
-
-    return NextResponse.json(createSuccessResponse("Project created successfully", result.rows[0]), { status: 201 })
+    return NextResponse.json(createSuccessResponse('Project created successfully', result[0]), {
+      status: 201,
+    })
   } catch (error) {
     return NextResponse.json(handleApiError(error), { status: 500 })
   }

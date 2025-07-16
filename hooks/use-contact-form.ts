@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState } from "react"
-import { useToast } from "@/hooks/use-toast"
+import { useState } from 'react'
+import { useToast } from '@/hooks/use-toast'
 
 interface ContactForm {
   firstName: string
@@ -17,16 +17,16 @@ export function useContactForm() {
   const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [contactForm, setContactForm] = useState<ContactForm>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    subject: "",
-    message: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: '',
+    message: '',
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    setContactForm((prev) => ({
+    setContactForm(prev => ({
       ...prev,
       [name]: value,
     }))
@@ -37,10 +37,10 @@ export function useContactForm() {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
+      const response = await fetch('/api/contact', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(contactForm),
       })
@@ -49,28 +49,28 @@ export function useContactForm() {
 
       if (result.success) {
         toast({
-          title: "Message Sent!",
+          title: 'Message Sent!',
           description: result.message,
         })
         setContactForm({
-          firstName: "",
-          lastName: "",
-          email: "",
-          subject: "",
-          message: "",
+          firstName: '',
+          lastName: '',
+          email: '',
+          subject: '',
+          message: '',
         })
       } else {
         toast({
-          title: "Error",
-          description: result.message || "Failed to send message. Please try again.",
-          variant: "destructive",
+          title: 'Error',
+          description: result.message || 'Failed to send message. Please try again.',
+          variant: 'destructive',
         })
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to send message. Please check your connection and try again.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to send message. Please check your connection and try again.',
+        variant: 'destructive',
       })
     } finally {
       setIsSubmitting(false)

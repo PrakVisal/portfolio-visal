@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 interface PortfolioData {
   name: string
@@ -23,7 +23,7 @@ export function usePortfolioData() {
   useEffect(() => {
     const fetchPortfolioData = async () => {
       try {
-        const response = await fetch("/api/portfolio")
+        const response = await fetch('/api/portfolio')
         if (response.ok) {
           const result = await response.json()
           if (result.success) {
@@ -32,23 +32,23 @@ export function usePortfolioData() {
             throw new Error(result.message)
           }
         } else {
-          throw new Error("Failed to fetch portfolio data")
+          throw new Error('Failed to fetch portfolio data')
         }
       } catch (error) {
-        console.error("Failed to fetch portfolio data:", error)
-        setError(error instanceof Error ? error.message : "Unknown error")
+        console.error('Failed to fetch portfolio data:', error)
+        setError(error instanceof Error ? error.message : 'Unknown error')
         // Use default data if API is not available
         setPortfolioData({
-          name: "Muhammad Aqsam",
-          title: "UI/UX Designer, Flutter developer",
+          name: 'Prak Visal',
+          title: 'UI/UX Designer, Backend developer',
           description:
-            "Hello! I'm a UI/UX designer and Flutter developer. Dive into my portfolio to discover a fusion of elegant design and seamless Flutter development. Welcome to a world where creativity meets functionality!",
-          location: "Pakistan",
+            "Hello! I'm a UI/UX designer and Backend developer. Dive into my portfolio to discover a fusion of elegant design and seamless Backend development. Welcome to a world where creativity meets functionality!",
+          location: 'Cambodia',
           socialLinks: {
-            instagram: "https://instagram.com/aqsam",
-            facebook: "https://facebook.com/aqsam",
-            twitter: "https://twitter.com/aqsam",
-            youtube: "https://youtube.com/aqsam",
+            instagram: 'https://instagram.com/sannnnnnnji',
+            facebook: 'https://facebook.com/PrakVisal',
+            twitter: 'https://twitter.com/PrakVisal',
+            youtube: 'https://youtube.com/AGVisal',
           },
         })
       } finally {

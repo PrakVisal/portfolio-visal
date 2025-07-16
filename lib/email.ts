@@ -1,8 +1,8 @@
-import nodemailer from "nodemailer"
+import nodemailer from 'nodemailer'
 
-const transporter = nodemailer.createTransporter({
-  host: process.env.SMTP_HOST || "smtp.gmail.com",
-  port: Number.parseInt(process.env.SMTP_PORT || "587"),
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: Number.parseInt(process.env.SMTP_PORT || '587'),
   secure: false,
   auth: {
     user: process.env.SMTP_USER,
@@ -23,11 +23,11 @@ export async function sendEmail(options: EmailOptions) {
       from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
       ...options,
     })
-    console.log("Email sent:", info.messageId)
+    console.log('Email sent:', info.messageId)
     return { success: true, messageId: info.messageId }
   } catch (error) {
-    console.error("Email error:", error)
-    throw new Error("Failed to send email")
+    console.error('Email error:', error)
+    throw new Error('Failed to send email')
   }
 }
 
@@ -51,7 +51,7 @@ export function generateContactEmailTemplate(data: {
           <div style="margin-top: 20px;">
             <strong>Message:</strong>
             <div style="background-color: white; padding: 15px; border-left: 4px solid #4ECDC4; margin-top: 10px;">
-              ${data.message.replace(/\n/g, "<br>")}
+              ${data.message.replace(/\n/g, '<br>')}
             </div>
           </div>
         </div>

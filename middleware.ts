@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
-import { getToken } from "next-auth/jwt"
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 
 export async function middleware(request: NextRequest) {
   // Check if the request is for admin routes
-  if (request.nextUrl.pathname.startsWith("/admin")) {
+  if (request.nextUrl.pathname.startsWith('/admin')) {
     // Allow access to login page
-    if (request.nextUrl.pathname === "/admin/login") {
+    if (request.nextUrl.pathname === '/admin/login') {
       return NextResponse.next()
     }
 
@@ -18,13 +18,13 @@ export async function middleware(request: NextRequest) {
 
     // If no token, redirect to login
     if (!token) {
-      const loginUrl = new URL("/admin/login", request.url)
+      const loginUrl = new URL('/admin/login', request.url)
       return NextResponse.redirect(loginUrl)
     }
 
     // Check if user has admin role
-    if (token.role !== "admin") {
-      const loginUrl = new URL("/admin/login", request.url)
+    if (token.role !== 'admin') {
+      const loginUrl = new URL('/admin/login', request.url)
       return NextResponse.redirect(loginUrl)
     }
   }
@@ -33,5 +33,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ['/admin/:path*'],
 }

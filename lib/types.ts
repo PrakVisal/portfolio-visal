@@ -3,7 +3,7 @@ export interface User {
   email: string
   name: string
   password: string
-  role: "admin" | "user"
+  role: 'admin' | 'user'
   created_at: Date
   updated_at: Date
 }
@@ -57,7 +57,7 @@ export interface Contact {
   email: string
   subject: string
   message: string
-  status: "unread" | "read" | "replied"
+  status: 'unread' | 'read' | 'replied'
   created_at: Date
   updated_at: Date
 }
@@ -73,8 +73,21 @@ export interface Service {
   updated_at: Date
 }
 
+export interface ContactSubmission {
+  id: number
+  firstName: string
+  lastName: string
+  email: string
+  subject: string
+  message: string
+  isRead: boolean
+  isReplied: boolean
+  createdAt: string
+  // Add any other fields your app uses
+}
+
 // NextAuth types extension
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
     user: {
       id: string
@@ -89,7 +102,7 @@ declare module "next-auth" {
   }
 }
 
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
   interface JWT {
     role: string
   }

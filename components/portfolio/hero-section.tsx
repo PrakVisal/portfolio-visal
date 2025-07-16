@@ -1,9 +1,8 @@
-"use client"
+'use client'
 
-import { Button } from "@/components/ui/button"
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+import { Button } from '@/components/ui/button'
+import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
+import Image from 'next/image'
 
 interface HeroSectionProps {
   portfolioData: {
@@ -20,24 +19,24 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ portfolioData, onDownloadCV }: HeroSectionProps) {
+  const nameSplit = portfolioData.name.split(' ')
   return (
-    <section id="home" className="pt-24 pb-16 px-4 bg-gradient-to-br from-yellow-400 to-yellow-500">
+    <section id="home" className="bg-gradient-to-br from-yellow-400 to-yellow-500 px-4 pb-44 pt-24">
       <div className="container mx-auto">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="order-2 md:order-1">
-            <h2 className="text-xl font-medium mb-2 text-gray-800">Hello,</h2>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900">
-              I'm <span className="text-teal-600">Aqsam</span>
+        <div className="grid grid-cols-1 items-center gap-x-8 gap-y-32 md:grid-cols-2 md:gap-y-0">
+          <div className="order-2 sm:pt-32 md:order-1">
+            <h2 className="mb-2 text-xl font-medium text-gray-800">Hello,</h2>
+            <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-6xl">
+              I am <span className="text-teal-600">{nameSplit[1]}</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-800">{portfolioData.title}</p>
+            <p className="mb-8 text-xl text-gray-800 md:text-2xl">{portfolioData.title}</p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button className="bg-black text-white hover:bg-gray-800 shadow-lg shadow-teal-400/30 transition-all duration-300 hover:shadow-xl">
+            <div className="mb-8 flex flex-col gap-4 sm:flex-row">
+              <Button className="bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
                 Hire me
               </Button>
               <Button
-                variant="outline"
-                className="bg-white border-2 border-teal-500 text-black hover:bg-teal-50 shadow-lg shadow-teal-400/30 transition-all duration-300 hover:shadow-xl"
+                className="bg-white text-black shadow-lg transition-all duration-700 hover:bg-teal-500 hover:text-white hover:shadow-xl"
                 onClick={onDownloadCV}
               >
                 Download CV
@@ -45,38 +44,58 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
             </div>
 
             <div className="flex space-x-4">
-              <Link href={portfolioData.socialLinks.instagram} aria-label="Instagram" className="group">
-                <Instagram className="h-6 w-6 text-gray-700 group-hover:text-pink-500 transition-colors duration-300" />
-              </Link>
-              <Link href={portfolioData.socialLinks.facebook} aria-label="Facebook" className="group">
-                <Facebook className="h-6 w-6 text-gray-700 group-hover:text-blue-600 transition-colors duration-300" />
-              </Link>
-              <Link href={portfolioData.socialLinks.twitter} aria-label="Twitter" className="group">
-                <Twitter className="h-6 w-6 text-gray-700 group-hover:text-teal-500 transition-colors duration-300" />
-              </Link>
-              <Link href={portfolioData.socialLinks.youtube} aria-label="YouTube" className="group">
-                <Youtube className="h-6 w-6 text-gray-700 group-hover:text-red-600 transition-colors duration-300" />
-              </Link>
+              <a
+                href={portfolioData.socialLinks.instagram}
+                aria-label="Instagram"
+                className="group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Instagram className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-pink-500" />
+              </a>
+              <a
+                href={portfolioData.socialLinks.facebook}
+                aria-label="Facebook"
+                className="group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Facebook className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-blue-600" />
+              </a>
+              <a
+                href={portfolioData.socialLinks.twitter}
+                aria-label="Twitter"
+                className="group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-teal-500" />
+              </a>
+              <a
+                href={portfolioData.socialLinks.youtube}
+                aria-label="YouTube"
+                className="group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Youtube className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-red-600" />
+              </a>
             </div>
           </div>
 
-          <div className="order-1 md:order-2 flex justify-center">
+          <div className="order-1 flex justify-center md:order-2">
             <div className="relative">
-              <div className="absolute -z-10 w-64 h-64 bg-teal-500 rounded-full top-4 left-4 opacity-80"></div>
-              <div className="bg-yellow-400 rounded-full p-4 relative z-10 shadow-2xl">
-                <div className="w-56 h-56 md:w-72 md:h-72 relative">
+              <div className="absolute left-4 top-4 -z-10 h-64 w-64 rounded-full"></div>
+              <div className="relative z-10 bg-yellow-400">
+                <div className="relative h-56 w-56 md:h-72 md:w-72">
                   <Image
-                    src="/placeholder.svg?height=300&width=300"
-                    alt="Aqsam - UI/UX Designer & Flutter Developer"
+                    src="IMG_4949.PNG"
+                    alt="Visal - UI/UX Designer & Backend Developer"
                     width={300}
                     height={300}
-                    className="rounded-full object-cover"
+                    className="rounded-lg object-cover"
                     priority
                   />
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl font-bold text-gray-800">
-                    <span className="block">VD</span>
-                    <span className="block">C</span>
-                  </div>
                 </div>
               </div>
             </div>

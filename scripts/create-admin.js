@@ -1,13 +1,13 @@
-const postgres = require("postgres")
-const bcrypt = require("bcryptjs")
+const postgres = require('postgres')
+const bcrypt = require('bcryptjs')
 
 async function createAdmin() {
-  const sql = postgres(process.env.DATABASE_URL || "postgresql://localhost:5432/portfolio")
+  const sql = postgres(process.env.DATABASE_URL || 'postgresql://localhost:5432/portfolio')
 
   try {
-    console.log("🔄 Creating admin user...")
+    console.log('🔄 Creating admin user...')
 
-    const hashedPassword = await bcrypt.hash("admin123", 12)
+    const hashedPassword = await bcrypt.hash('admin123', 12)
 
     await sql`
       INSERT INTO users (email, name, password, role)
@@ -17,11 +17,11 @@ async function createAdmin() {
         role = 'admin'
     `
 
-    console.log("✅ Admin user created successfully!")
-    console.log("📧 Email: admin@portfolio.com")
-    console.log("🔑 Password: admin123")
+    console.log('✅ Admin user created successfully!')
+    console.log('📧 Email: admin@portfolio.com')
+    console.log('🔑 Password: admin123')
   } catch (error) {
-    console.error("❌ Admin user creation failed:", error)
+    console.error('❌ Admin user creation failed:', error)
     process.exit(1)
   } finally {
     await sql.end()

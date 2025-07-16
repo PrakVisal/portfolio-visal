@@ -1,20 +1,20 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import AdminHeader from "@/components/admin/header"
-import AdminSidebar from "@/components/admin/sidebar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import type { PortfolioData } from "@/lib/types"
-import { Save } from "lucide-react"
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import AdminHeader from '@/components/admin/header'
+import AdminSidebar from '@/components/admin/sidebar'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { useToast } from '@/hooks/use-toast'
+import type { PortfolioData } from '@/lib/types'
+import { Save } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function PortfolioPage() {
   const { data: session, status } = useSession()
@@ -26,8 +26,8 @@ export default function PortfolioPage() {
   const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/admin/login")
+    if (status === 'unauthenticated') {
+      router.push('/admin/login')
     }
   }, [status, router])
 
@@ -39,7 +39,7 @@ export default function PortfolioPage() {
 
   const fetchPortfolioData = async () => {
     try {
-      const response = await fetch("/api/portfolio")
+      const response = await fetch('/api/portfolio')
       const result = await response.json()
 
       if (result.success) {
@@ -47,9 +47,9 @@ export default function PortfolioPage() {
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to fetch portfolio data",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to fetch portfolio data',
+        variant: 'destructive',
       })
     } finally {
       setIsLoading(false)
@@ -62,9 +62,9 @@ export default function PortfolioPage() {
 
     setIsSaving(true)
     try {
-      const response = await fetch("/api/portfolio", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/portfolio', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(portfolioData),
       })
 
@@ -72,17 +72,17 @@ export default function PortfolioPage() {
 
       if (result.success) {
         toast({
-          title: "Success",
-          description: "Portfolio updated successfully",
+          title: 'Success',
+          description: 'Portfolio updated successfully',
         })
       } else {
         throw new Error(result.message)
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to update portfolio",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to update portfolio',
+        variant: 'destructive',
       })
     } finally {
       setIsSaving(false)
@@ -92,8 +92,8 @@ export default function PortfolioPage() {
   const handleInputChange = (field: string, value: string) => {
     if (!portfolioData) return
 
-    if (field.startsWith("socialLinks.")) {
-      const socialField = field.split(".")[1]
+    if (field.startsWith('socialLinks.')) {
+      const socialField = field.split('.')[1]
       setPortfolioData({
         ...portfolioData,
         socialLinks: {
@@ -109,7 +109,7 @@ export default function PortfolioPage() {
     }
   }
 
-  if (status === "loading" || isLoading) {
+  if (status === 'loading' || isLoading) {
     return <div>Loading...</div>
   }
 
@@ -120,15 +120,20 @@ export default function PortfolioPage() {
   return (
     <div className="flex h-screen bg-gray-50">
       <AdminSidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <AdminHeader title="Portfolio Content" description="Update your personal information and social links" />
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <AdminHeader
+          title="Portfolio Content"
+          description="Update your personal information and social links"
+        />
 
         <main className="flex-1 overflow-y-auto p-6">
           <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle>Personal Information</CardTitle>
-                <CardDescription>Update your basic information displayed on the portfolio</CardDescription>
+                <CardDescription>
+                  Update your basic information displayed on the portfolio
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -136,7 +141,7 @@ export default function PortfolioPage() {
                   <Input
                     id="name"
                     value={portfolioData.name}
-                    onChange={(e) => handleInputChange("name", e.target.value)}
+                    onChange={e => handleInputChange('name', e.target.value)}
                     required
                   />
                 </div>
@@ -146,7 +151,7 @@ export default function PortfolioPage() {
                   <Input
                     id="title"
                     value={portfolioData.title}
-                    onChange={(e) => handleInputChange("title", e.target.value)}
+                    onChange={e => handleInputChange('title', e.target.value)}
                     placeholder="e.g., UI/UX Designer, Flutter Developer"
                     required
                   />
@@ -157,7 +162,7 @@ export default function PortfolioPage() {
                   <Textarea
                     id="description"
                     value={portfolioData.description}
-                    onChange={(e) => handleInputChange("description", e.target.value)}
+                    onChange={e => handleInputChange('description', e.target.value)}
                     rows={4}
                     required
                   />
@@ -168,7 +173,7 @@ export default function PortfolioPage() {
                   <Input
                     id="location"
                     value={portfolioData.location}
-                    onChange={(e) => handleInputChange("location", e.target.value)}
+                    onChange={e => handleInputChange('location', e.target.value)}
                     required
                   />
                 </div>
@@ -187,7 +192,7 @@ export default function PortfolioPage() {
                     id="instagram"
                     type="url"
                     value={portfolioData.socialLinks.instagram}
-                    onChange={(e) => handleInputChange("socialLinks.instagram", e.target.value)}
+                    onChange={e => handleInputChange('socialLinks.instagram', e.target.value)}
                     placeholder="https://instagram.com/username"
                   />
                 </div>
@@ -198,7 +203,7 @@ export default function PortfolioPage() {
                     id="facebook"
                     type="url"
                     value={portfolioData.socialLinks.facebook}
-                    onChange={(e) => handleInputChange("socialLinks.facebook", e.target.value)}
+                    onChange={e => handleInputChange('socialLinks.facebook', e.target.value)}
                     placeholder="https://facebook.com/username"
                   />
                 </div>
@@ -209,7 +214,7 @@ export default function PortfolioPage() {
                     id="twitter"
                     type="url"
                     value={portfolioData.socialLinks.twitter}
-                    onChange={(e) => handleInputChange("socialLinks.twitter", e.target.value)}
+                    onChange={e => handleInputChange('socialLinks.twitter', e.target.value)}
                     placeholder="https://twitter.com/username"
                   />
                 </div>
@@ -220,7 +225,7 @@ export default function PortfolioPage() {
                     id="youtube"
                     type="url"
                     value={portfolioData.socialLinks.youtube}
-                    onChange={(e) => handleInputChange("socialLinks.youtube", e.target.value)}
+                    onChange={e => handleInputChange('socialLinks.youtube', e.target.value)}
                     placeholder="https://youtube.com/channel/..."
                   />
                 </div>
@@ -228,9 +233,13 @@ export default function PortfolioPage() {
             </Card>
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={isSaving} className="bg-yellow-500 hover:bg-yellow-600">
+              <Button
+                type="submit"
+                disabled={isSaving}
+                className="bg-yellow-500 hover:bg-yellow-600"
+              >
                 <Save className="mr-2 h-4 w-4" />
-                {isSaving ? "Saving..." : "Save Changes"}
+                {isSaving ? 'Saving...' : 'Save Changes'}
               </Button>
             </div>
           </form>

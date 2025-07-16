@@ -1,20 +1,39 @@
-"use client"
+'use client'
 
-import AdminHeader from "@/components/admin/header"
-import AdminSidebar from "@/components/admin/sidebar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useToast } from "@/hooks/use-toast"
-import type { ContactSubmission } from "@/lib/types"
-import { Eye, Mail, MailCheck, Search, Trash2 } from "lucide-react"
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import AdminHeader from '@/components/admin/header'
+import AdminSidebar from '@/components/admin/sidebar'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { useToast } from '@/hooks/use-toast'
+import type { ContactSubmission } from '@/lib/types'
+import { Eye, Mail, MailCheck, Search, Trash2 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function ContactsPage() {
   const { data: session, status } = useSession()
@@ -24,14 +43,14 @@ export default function ContactsPage() {
   const [contacts, setContacts] = useState<ContactSubmission[]>([])
   const [selectedContact, setSelectedContact] = useState<ContactSubmission | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [filterStatus, setFilterStatus] = useState("all")
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterStatus, setFilterStatus] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/admin/login")
+    if (status === 'unauthenticated') {
+      router.push('/admin/login')
     }
   }, [status, router])
 
@@ -46,8 +65,8 @@ export default function ContactsPage() {
       setIsLoading(true)
       const params = new URLSearchParams({
         page: currentPage.toString(),
-        limit: "10",
-        ...(filterStatus === "unread" && { unread: "true" }),
+        limit: '10',
+        ...(filterStatus === 'unread' && { unread: 'true' }),
       })
 
       const response = await fetch(`/api/contact?${params}`)
@@ -59,9 +78,9 @@ export default function ContactsPage() {
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to fetch contacts",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to fetch contacts',
+        variant: 'destructive',
       })
     } finally {
       setIsLoading(false)
@@ -71,23 +90,25 @@ export default function ContactsPage() {
   const markAsRead = async (id: number) => {
     try {
       const response = await fetch(`/api/contact/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isRead: true }),
       })
 
       if (response.ok) {
-        setContacts(contacts.map((contact) => (contact.id === id ? { ...contact, isRead: true } : contact)))
+        setContacts(
+          contacts.map(contact => (contact.id === id ? { ...contact, isRead: true } : contact))
+        )
         toast({
-          title: "Success",
-          description: "Message marked as read",
+          title: 'Success',
+          description: 'Message marked as read',
         })
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to update message",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to update message',
+        variant: 'destructive',
       })
     }
   }
@@ -95,60 +116,62 @@ export default function ContactsPage() {
   const markAsReplied = async (id: number) => {
     try {
       const response = await fetch(`/api/contact/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isReplied: true }),
       })
 
       if (response.ok) {
-        setContacts(contacts.map((contact) => (contact.id === id ? { ...contact, isReplied: true } : contact)))
+        setContacts(
+          contacts.map(contact => (contact.id === id ? { ...contact, isReplied: true } : contact))
+        )
         toast({
-          title: "Success",
-          description: "Message marked as replied",
+          title: 'Success',
+          description: 'Message marked as replied',
         })
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to update message",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to update message',
+        variant: 'destructive',
       })
     }
   }
 
   const deleteContact = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this message?")) return
+    if (!confirm('Are you sure you want to delete this message?')) return
 
     try {
       const response = await fetch(`/api/contact/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
       })
 
       if (response.ok) {
-        setContacts(contacts.filter((contact) => contact.id !== id))
+        setContacts(contacts.filter(contact => contact.id !== id))
         toast({
-          title: "Success",
-          description: "Message deleted successfully",
+          title: 'Success',
+          description: 'Message deleted successfully',
         })
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to delete message",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to delete message',
+        variant: 'destructive',
       })
     }
   }
 
   const filteredContacts = contacts.filter(
-    (contact) =>
-      contact.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.subject.toLowerCase().includes(searchTerm.toLowerCase()),
+    contact =>
+      (contact.firstName?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
+      (contact.lastName?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
+      (contact.email?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
+      (contact.subject?.toLowerCase() ?? '').includes(searchTerm.toLowerCase())
   )
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return <div>Loading...</div>
   }
 
@@ -159,8 +182,11 @@ export default function ContactsPage() {
   return (
     <div className="flex h-screen bg-gray-50">
       <AdminSidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <AdminHeader title="Contact Messages" description="Manage and respond to portfolio inquiries" />
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <AdminHeader
+          title="Contact Messages"
+          description="Manage and respond to portfolio inquiries"
+        />
 
         <main className="flex-1 overflow-y-auto p-6">
           <Card>
@@ -168,16 +194,18 @@ export default function ContactsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle>Contact Submissions</CardTitle>
-                  <CardDescription>View and manage messages from your portfolio contact form</CardDescription>
+                  <CardDescription>
+                    View and manage messages from your portfolio contact form
+                  </CardDescription>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-gray-400" />
                     <Input
                       placeholder="Search contacts..."
                       value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 w-64"
+                      onChange={e => setSearchTerm(e.target.value)}
+                      className="w-64 pl-10"
                     />
                   </div>
                   <Select value={filterStatus} onValueChange={setFilterStatus}>
@@ -194,7 +222,7 @@ export default function ContactsPage() {
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <div className="text-center py-8">Loading contacts...</div>
+                <div className="py-8 text-center">Loading contacts...</div>
               ) : (
                 <>
                   <Table>
@@ -209,8 +237,8 @@ export default function ContactsPage() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {filteredContacts.map((contact) => (
-                        <TableRow key={contact.id} className={!contact.isRead ? "bg-blue-50" : ""}>
+                      {filteredContacts.map(contact => (
+                        <TableRow key={contact.id} className={!contact.isRead ? 'bg-blue-50' : ''}>
                           <TableCell className="font-medium">
                             {contact.firstName} {contact.lastName}
                           </TableCell>
@@ -233,16 +261,28 @@ export default function ContactsPage() {
                           </TableCell>
                           <TableCell>
                             <div className="flex items-center space-x-2">
-                              <Button variant="ghost" size="sm" onClick={() => setSelectedContact(contact)}>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setSelectedContact(contact)}
+                              >
                                 <Eye className="h-4 w-4" />
                               </Button>
                               {!contact.isRead && (
-                                <Button variant="ghost" size="sm" onClick={() => markAsRead(contact.id)}>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => markAsRead(contact.id)}
+                                >
                                   <Mail className="h-4 w-4" />
                                 </Button>
                               )}
                               {!contact.isReplied && (
-                                <Button variant="ghost" size="sm" onClick={() => markAsReplied(contact.id)}>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => markAsReplied(contact.id)}
+                                >
                                   <MailCheck className="h-4 w-4" />
                                 </Button>
                               )}
@@ -262,11 +302,11 @@ export default function ContactsPage() {
                   </Table>
 
                   {filteredContacts.length === 0 && (
-                    <div className="text-center py-8 text-gray-500">No contacts found</div>
+                    <div className="py-8 text-center text-gray-500">No contacts found</div>
                   )}
 
                   {totalPages > 1 && (
-                    <div className="flex items-center justify-between mt-4">
+                    <div className="mt-4 flex items-center justify-between">
                       <div className="text-sm text-gray-500">
                         Page {currentPage} of {totalPages}
                       </div>
@@ -326,11 +366,11 @@ export default function ContactsPage() {
               </div>
               <div>
                 <label className="text-sm font-medium text-gray-500">Message</label>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm whitespace-pre-wrap">{selectedContact.message}</p>
+                <div className="rounded-lg bg-gray-50 p-4">
+                  <p className="whitespace-pre-wrap text-sm">{selectedContact.message}</p>
                 </div>
               </div>
-              <div className="flex items-center justify-between pt-4 border-t">
+              <div className="flex items-center justify-between border-t pt-4">
                 <div className="text-xs text-gray-500">
                   Received: {new Date(selectedContact.createdAt).toLocaleString()}
                 </div>
