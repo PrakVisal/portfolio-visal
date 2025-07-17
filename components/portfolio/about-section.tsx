@@ -7,6 +7,7 @@ import Image from 'next/image'
 interface AboutSectionProps {
   portfolioData: {
     description: string
+    image_url?: string
   }
   onDownloadCV: () => void
 }
@@ -23,7 +24,7 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
               <div className="relative z-10 rounded-full border border-gray-100 bg-white p-4 shadow-xl">
                 <div className="relative h-56 w-56 md:h-72 md:w-72 hover:scale-110 duration-300 transition-all">
                   <Image
-                    src="pf.jpg"
+                    src={portfolioData.image_url || "pf.jpg"}
                     alt="Aqsam - About"
                     width={300}
                     height={300}

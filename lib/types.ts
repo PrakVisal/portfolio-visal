@@ -28,7 +28,9 @@ export interface Portfolio {
   linkedin: string
   twitter: string
   resume_url: string
-  profile_image: string
+  profile_image?: string // Profile image URL
+  about_image?: string   // About section image URL
+  image_url?: string // Optional profile image URL for uploads (legacy)
   created_at: Date
   updated_at: Date
 }

@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 interface PortfolioData {
   name: string
   title: string
+  profile_image: string
+  about_image: string
   description: string
   location: string
   socialLinks: {
@@ -41,6 +43,8 @@ export function usePortfolioData() {
         setPortfolioData({
           name: 'Prak Visal',
           title: 'UI/UX Designer, Backend developer',
+          profile_image: 'IMG_4949.PNG',
+          about_image: 'pf.jpg',
           description:
             "Hello! I'm a UI/UX designer and Backend developer. Dive into my portfolio to discover a fusion of elegant design and seamless Backend development. Welcome to a world where creativity meets functionality!",
           location: 'Cambodia',

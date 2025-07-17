@@ -35,6 +35,8 @@ export type ContactFormData = z.infer<typeof contactFormSchema>
 export const portfolioUpdateSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100),
   title: z.string().min(1, 'Title is required').max(200),
+  profile_image: z.string().max(200).optional().or(z.literal('')),
+  about_image: z.string().max(200).optional().or(z.literal('')),
   description: z.string().min(1, 'Description is required').max(1000),
   location: z.string().min(1, 'Location is required').max(100),
   socialLinks: z.object({

@@ -6,6 +6,7 @@ import HeroSection from '@/components/portfolio/hero-section'
 import NewLoading from './ui/loading-spinner'
 import Navigation from '@/components/portfolio/navigation'
 import ServicesSection from '@/components/portfolio/services-section'
+import ProjectsSection from '@/components/portfolio/projects-section'
 import { useContactForm } from '@/hooks/use-contact-form'
 import { usePortfolioData } from '@/hooks/use-portfolio-data'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
@@ -30,6 +31,7 @@ export default function Portfolio() {
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <ServicesSection />
+      <ProjectsSection />
       <ContactSection
         portfolioData={portfolioData}
         contactForm={contactForm}

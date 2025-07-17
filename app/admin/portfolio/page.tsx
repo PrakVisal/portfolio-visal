@@ -16,6 +16,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
+import ImageUploader from '@/components/admin/ImageUploader'
 
 export default function PortfolioPage() {
   const { data: session, status } = useSession()
@@ -187,6 +188,27 @@ export default function PortfolioPage() {
                     onChange={e => handleInputChange('location', e.target.value)}
                     required
                   />
+                </div>
+
+                <div>
+                  <Label htmlFor="profile-image">Profile Image</Label>
+                  <ImageUploader
+                    type="pf"
+                    onUpload={url => handleInputChange('profile_image', url)}
+                  />
+                  {portfolioData.profile_image && (
+                    <img src={portfolioData.profile_image} alt="Profile" style={{ maxWidth: 120, marginTop: 10 }} />
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="about-image">About Image</Label>
+                  <ImageUploader
+                    type="about"
+                    onUpload={url => handleInputChange('about_image', url)}
+                  />
+                  {portfolioData.about_image && (
+                    <img src={portfolioData.about_image} alt="About" style={{ maxWidth: 120, marginTop: 10 }} />
+                  )}
                 </div>
               </CardContent>
             </Card>

@@ -8,6 +8,8 @@ interface HeroSectionProps {
   portfolioData: {
     name: string
     title: string
+    profile_image: string
+    about_image: string
     socialLinks: {
       instagram: string
       facebook: string
@@ -89,7 +91,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
               <div className="relative z-10 bg-yellow-400">
                 <div className="relative h-56 w-56 md:h-72 md:w-72">
                   <Image
-                    src="IMG_4949.PNG"
+                    src={portfolioData.profile_image}
                     alt="Visal - UI/UX Designer & Backend Developer"
                     width={300}
                     height={300}
