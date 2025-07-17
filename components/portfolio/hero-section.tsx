@@ -91,7 +91,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
               <div className="relative z-10 bg-yellow-400">
                 <div className="relative h-56 w-56 md:h-72 md:w-72">
                   <Image
-                    src={portfolioData.profile_image}
+                    src={"IMG_4949.PNG"}
                     alt="Visal - UI/UX Designer & Backend Developer"
                     width={300}
                     height={300}

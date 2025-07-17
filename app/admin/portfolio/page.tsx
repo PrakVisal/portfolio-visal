@@ -16,7 +16,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
-import ImageUploader from '@/components/admin/ImageUploader'
+// import ImageUploader from '@/components/admin/ImageUploader'
 
 export default function PortfolioPage() {
   const { data: session, status } = useSession()
@@ -190,7 +190,7 @@ export default function PortfolioPage() {
                   />
                 </div>
 
-                <div>
+                {/* <div>
                   <Label htmlFor="profile-image">Profile Image</Label>
                   <ImageUploader
                     type="pf"
@@ -209,7 +209,7 @@ export default function PortfolioPage() {
                   {portfolioData.about_image && (
                     <img src={portfolioData.about_image} alt="About" style={{ maxWidth: 120, marginTop: 10 }} />
                   )}
-                </div>
+                </div> */}
               </CardContent>
             </Card>
 
