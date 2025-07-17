@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { MessageSquare, Users, FolderOpen, TrendingUp } from 'lucide-react'
 import LoadingSpinner from '@/components/portfolio/loading-spinner'
+import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
 
 interface DashboardStats {
   totalContacts: number
@@ -26,6 +27,7 @@ export default function AdminDashboard() {
     recentActivity: 0,
   })
   const [isLoading, setIsLoading] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -63,7 +65,11 @@ export default function AdminDashboard() {
   }, [session])
 
   if (status === 'loading') {
-    return <LoadingSpinner/>
+    return <>
+    <center>
+      <LoadingSpinner/>
+    </center>
+    </>
   }
 
   if (!session) {
@@ -72,9 +78,16 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <AdminSidebar />
+      {/* Desktop Sidebar */}
+      <AdminSidebar className="hidden md:block" />
+      {/* Mobile Sidebar Drawer */}
+      <Drawer open={sidebarOpen} onOpenChange={setSidebarOpen}>
+  <DrawerContent className="md:hidden p-0 w-64">
+    <AdminSidebar onClose={() => setSidebarOpen(false)} className="block md:hidden h-full" />
+  </DrawerContent>
+</Drawer>
       <div className="flex flex-1 flex-col overflow-hidden">
-        <AdminHeader title="Dashboard" description="Welcome to your portfolio admin panel" />
+        <AdminHeader title="Dashboard" description="Welcome to your portfolio admin panel" onMenuClick={() => setSidebarOpen(true)} />
 
         <main className="flex-1 overflow-y-auto p-6">
           <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -84,7 +97,7 @@ export default function AdminDashboard() {
                 <MessageSquare className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? '...' : stats.totalContacts}</div>
+                <div className="text-2xl font-bold justify-content-center">{isLoading ? '...' : stats.totalContacts}</div>
                 <p className="text-xs text-muted-foreground">
                   {stats.unreadContacts} unread messages
                 </p>
@@ -108,7 +121,7 @@ export default function AdminDashboard() {
                 <FolderOpen className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{isLoading ? '...' : stats.totalProjects}</div>
+                <div className="text-2xl font-bold justify-center align-content-center">{isLoading ? '...' : stats.totalProjects}</div>
                 <p className="text-xs text-muted-foreground">In portfolio</p>
               </CardContent>
             </Card>

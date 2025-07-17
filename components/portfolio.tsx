@@ -3,7 +3,7 @@ import AboutSection from '@/components/portfolio/about-section'
 import ContactSection from '@/components/portfolio/contact-section'
 import Footer from '@/components/portfolio/footer'
 import HeroSection from '@/components/portfolio/hero-section'
-import LoadingSpinner from '@/components/portfolio/loading-spinner'
+import NewLoading from './ui/loading-spinner'
 import Navigation from '@/components/portfolio/navigation'
 import ServicesSection from '@/components/portfolio/services-section'
 import { useContactForm } from '@/hooks/use-contact-form'
@@ -21,7 +21,7 @@ export default function Portfolio() {
   const { contactForm, isSubmitting, handleInputChange, handleSubmit } = useContactForm()
 
   if (isLoading || !portfolioData) {
-    return <LoadingSpinner />
+    return <NewLoading/>
   }
 
   return (

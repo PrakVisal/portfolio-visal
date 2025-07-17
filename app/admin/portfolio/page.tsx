@@ -15,6 +15,7 @@ import { Save } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
 
 export default function PortfolioPage() {
   const { data: session, status } = useSession()
@@ -24,6 +25,7 @@ export default function PortfolioPage() {
   const [portfolioData, setPortfolioData] = useState<Portfolio | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -119,11 +121,20 @@ export default function PortfolioPage() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <AdminSidebar />
+      {/* Desktop Sidebar */}
+      <AdminSidebar className="hidden md:block" />
+      {/* Mobile Sidebar Drawer */}
+      <Drawer open={sidebarOpen} onOpenChange={setSidebarOpen}>
+        <DrawerContent className="md:hidden p-0 w-64">
+          <AdminSidebar onClose={() => setSidebarOpen(false)} className="block md:hidden h-full" />
+    
+        </DrawerContent>
+      </Drawer>
       <div className="flex flex-1 flex-col overflow-hidden">
         <AdminHeader
           title="Portfolio Content"
           description="Update your personal information and social links"
+          onMenuClick={() => setSidebarOpen(true)}
         />
 
         <main className="flex-1 overflow-y-auto p-6">

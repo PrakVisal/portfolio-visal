@@ -8,7 +8,7 @@ export async function downloadCV() {
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'Aqsam_CV.pdf'
+      a.download = 'PrakVisalCV.pdf'
       document.body.appendChild(a)
       a.click()
       window.URL.revokeObjectURL(url)

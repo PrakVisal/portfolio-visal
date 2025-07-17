@@ -5,7 +5,7 @@ import { join } from 'path'
 export async function GET() {
   try {
     // Path to CV file in public directory
-    const cvPath = join(process.cwd(), 'public', 'cv', 'PrakVisalCV.pdf')
+    const cvPath = join(process.cwd(), 'public', 'PrakVisalCV.pdf')
 
     const fileBuffer = await readFile(cvPath)
 

@@ -34,6 +34,7 @@ import { Eye, Mail, MailCheck, Search, Trash2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
 
 export default function ContactsPage() {
   const { data: session, status } = useSession()
@@ -47,6 +48,7 @@ export default function ContactsPage() {
   const [filterStatus, setFilterStatus] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -181,11 +183,20 @@ export default function ContactsPage() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <AdminSidebar />
+      {/* Desktop Sidebar */}
+      <AdminSidebar className="hidden md:block" />
+      {/* Mobile Sidebar Drawer */}
+      <Drawer open={sidebarOpen} onOpenChange={setSidebarOpen}>
+        <DrawerContent className="md:hidden p-0 w-64">
+          <AdminSidebar onClose={() => setSidebarOpen(false)} className="block md:hidden h-full" />
+    
+        </DrawerContent>
+      </Drawer>
       <div className="flex flex-1 flex-col overflow-hidden">
         <AdminHeader
           title="Contact Messages"
           description="Manage and respond to portfolio inquiries"
+          onMenuClick={() => setSidebarOpen(true)}
         />
 
         <main className="flex-1 overflow-y-auto p-6">

@@ -25,15 +25,15 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
       <div className="container mx-auto">
         <div className="grid grid-cols-1 items-center gap-x-8 gap-y-32 md:grid-cols-2 md:gap-y-0">
           <div className="order-2 sm:pt-32 md:order-1">
-            <h2 className="mb-2 text-xl font-medium text-gray-800">Hello,</h2>
-            <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-6xl">
+            <h2 className="mb-2 text-5xl font-bold text-black">Hello,</h2>
+            <h1 className="mb-4 text-4xl font-bold text-black md:text-6xl">
               I am <span className="text-teal-600">{nameSplit[1]}</span>
             </h1>
-            <p className="mb-8 text-xl text-gray-800 md:text-2xl">{portfolioData.title}</p>
+            <p className="mb-8 text-xl text-gray-700 md:text-2xl">{portfolioData.title}</p>
 
             <div className="mb-8 flex flex-col gap-4 sm:flex-row">
               <Button className="bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
-                Hire me
+                <a href="mailto:visalprak2015@email.com">Hire me</a>
               </Button>
               <Button
                 className="bg-white text-black shadow-lg transition-all duration-700 hover:bg-teal-500 hover:text-white hover:shadow-xl"
@@ -93,7 +93,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                     alt="Visal - UI/UX Designer & Backend Developer"
                     width={300}
                     height={300}
-                    className="rounded-lg object-cover"
+                    className="rounded-lg object-cover border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
                     priority
                   />
                 </div>
