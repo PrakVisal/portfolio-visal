@@ -10,7 +10,7 @@ import ProjectsSection from '@/components/portfolio/projects-section'
 import { useContactForm } from '@/hooks/use-contact-form'
 import { usePortfolioData } from '@/hooks/use-portfolio-data'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
-
+import CircularGallery from './CircularGallery'
 import { downloadCV } from '@/utils/cv-download'
 
 const sections = ['home', 'about', 'services', 'contact']
@@ -32,6 +32,55 @@ export default function Portfolio() {
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <ServicesSection />
       <ProjectsSection />
+
+      <div style={{ height: '600px', position: 'relative' }}>
+      <CircularGallery bend={1} textColor="black" borderRadius={0.05} scrollEase={0.02} items={
+        [
+          {
+           image : `IMG_4878.JPEG`,
+           text : ""
+          },
+          {
+           image : `IMG_0115.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_0243.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_0673.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_4721.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_5092.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_5454.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_6837.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_7101.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_7732.JPG`,
+           text : ""
+          },
+          {
+           image : `IMG_9792.DNG`,
+           text : ""
+          },]}/>
+      </div>
       <ContactSection
         portfolioData={portfolioData}
         contactForm={contactForm}

@@ -84,7 +84,7 @@ export function generateAutoReplyTemplate(firstName: string) {
           <p>Hi ${firstName},</p>
           <p>Thank you for reaching out! I've received your message and will get back to you as soon as possible.</p>
           <p>I typically respond within 24-48 hours during business days.</p>
-          <p>Best regards,<br><strong>Muhammad Aqsam</strong><br>UI/UX Designer & Flutter Developer</p>
+          <p>Best regards,<br><strong>Prak Visal</strong><br>Fullstack Developer</p>
         </div>
         <div style="text-align: center; margin-top: 30px;">
           <p style="color: #666; font-size: 12px;">
@@ -101,8 +101,8 @@ export function generateAutoReplyTemplate(firstName: string) {
       I typically respond within 24-48 hours during business days.
       
       Best regards,
-      Muhammad Aqsam
-      UI/UX Designer & Flutter Developer
+      Prak Visal
+      Fullstack Developer
     `,
   }
 }

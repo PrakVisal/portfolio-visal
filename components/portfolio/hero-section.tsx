@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import LogoLoop from '../LogoLoop'
-import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si'
+import RotatingText from '@/components/RotatingText'
 
 interface HeroSectionProps {
   portfolioData: {
@@ -23,20 +24,35 @@ interface HeroSectionProps {
 }
 
 const techLogos = [
-  { node: <SiReact />, title: "React", href: "https://react.dev" },
-  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
-  { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
-  { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
-];
+  { node: <SiReact />, title: 'React', href: 'https://react.dev' },
+  { node: <SiNextdotjs />, title: 'Next.js', href: 'https://nextjs.org' },
+  { node: <SiTypescript />, title: 'TypeScript', href: 'https://www.typescriptlang.org' },
+  { node: <SiTailwindcss />, title: 'Tailwind CSS', href: 'https://tailwindcss.com' },
+]
 
 export default function HeroSection({ portfolioData, onDownloadCV }: HeroSectionProps) {
   const nameSplit = portfolioData.name.split(' ')
   return (
-    <section id="home" className="bg-gradient-to-br from-yellow-400 to-yellow-500 px-4 pb-16 pt-24  ">
+    <section id="home" className="bg-gradient-to-br from-yellow-400 to-yellow-500 px-4 pb-8 pt-24">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 items-center gap-x-8 md:grid-cols-2 gap-y-0">
+        <div className="grid grid-cols-1 items-center gap-x-8 gap-y-0 md:grid-cols-2">
           <div className="order-2 pt-20 md:order-1">
-            <h2 className="mb-2 text-5xl font-bold text-black">Hello,</h2>
+            <div className="flex gap-2 items-center pb-1">
+              <h1 className=' font-bold md:text-5xl text-3xl '>Creative</h1>
+              <RotatingText
+                texts={['Thinking', 'Coding', 'Solving', 'Living!']}
+                mainClassName="md:text-5xl font-bold text-3xl px-2 sm:px-2 md:px-3 bg-teal-400 text-white overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+                staggerFrom={'last'}
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '-120%' }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-2"
+                transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+              />
+            </div>
+            {/* <h2 className="mb-2 text-5xl font-bold text-black">Hello,</h2> */}
             <h1 className="mb-4 text-4xl font-bold text-black md:text-6xl">
               I am <span className="text-teal-600">{nameSplit[1]}</span>
             </h1>
@@ -94,24 +110,24 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
             </div>
           </div>
 
-          <div className="order-1 flex justify-center md:order-2 relative top-10">
+          <div className="relative top-10 order-1 flex justify-center md:order-2">
             <div className="relative">
               <div className="relative z-10 bg-yellow-400">
-                  <Image
-                    src={"IMG_4949.PNG"}
-                    alt="Visal - UI/UX Designer & Backend Developer"
-                    width={250}
-                    height={300}
-                    className="rounded-lg object-cover border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
-                    priority
-                  />
+                <Image
+                  src={'IMG_4949.PNG'}
+                  alt="Visal - UI/UX Designer & Backend Developer"
+                  width={250}
+                  height={300}
+                  className="rounded-lg border-2 border-black object-cover shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+                  priority
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-        <LogoLoop
-        className='flex flex-col justify-end mt-20'
+      <LogoLoop
+        className="mt-20 flex flex-col justify-end"
         logos={techLogos}
         speed={100}
         direction="left"
