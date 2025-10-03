@@ -44,7 +44,7 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
               <h3 className="mb-2 text-xl font-bold text-white">Backend Developer</h3>
               <div className="mb-4 h-1 w-16 bg-yellow-400"></div>
             </div>
-            <p className="mb-8 text-lg leading-relaxed text-gray-600">
+            <p className="mb-8 text-lg leading-relaxed text-gray-950">
               {portfolioData.description}
             </p>
             <div className="mb-8 flex flex-col gap-4 sm:flex-row">

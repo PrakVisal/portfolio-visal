@@ -3,6 +3,8 @@
 import { Button } from '@/components/ui/button'
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
 import Image from 'next/image'
+import LogoLoop from '../LogoLoop'
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 
 interface HeroSectionProps {
   portfolioData: {
@@ -20,13 +22,20 @@ interface HeroSectionProps {
   onDownloadCV: () => void
 }
 
+const techLogos = [
+  { node: <SiReact />, title: "React", href: "https://react.dev" },
+  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+  { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+  { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+];
+
 export default function HeroSection({ portfolioData, onDownloadCV }: HeroSectionProps) {
   const nameSplit = portfolioData.name.split(' ')
   return (
-    <section id="home" className="bg-gradient-to-br from-yellow-400 to-yellow-500 px-4 pb-44 pt-24">
+    <section id="home" className="bg-gradient-to-br from-yellow-400 to-yellow-500 px-4 pb-16 pt-24  ">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 items-center gap-x-8 gap-y-32 md:grid-cols-2 md:gap-y-0">
-          <div className="order-2 sm:pt-32 md:order-1">
+        <div className="grid grid-cols-1 items-center gap-x-8 md:grid-cols-2 gap-y-0">
+          <div className="order-2 pt-20 md:order-1">
             <h2 className="mb-2 text-5xl font-bold text-black">Hello,</h2>
             <h1 className="mb-4 text-4xl font-bold text-black md:text-6xl">
               I am <span className="text-teal-600">{nameSplit[1]}</span>
@@ -85,25 +94,35 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
             </div>
           </div>
 
-          <div className="order-1 flex justify-center md:order-2">
+          <div className="order-1 flex justify-center md:order-2 relative top-10">
             <div className="relative">
-              <div className="absolute left-4 top-4 -z-10 h-64 w-64 rounded-full"></div>
               <div className="relative z-10 bg-yellow-400">
-                <div className="relative h-56 w-56 md:h-72 md:w-72">
                   <Image
                     src={"IMG_4949.PNG"}
                     alt="Visal - UI/UX Designer & Backend Developer"
-                    width={300}
+                    width={250}
                     height={300}
                     className="rounded-lg object-cover border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
                     priority
                   />
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+        <LogoLoop
+        className='flex flex-col justify-end mt-20'
+        logos={techLogos}
+        speed={100}
+        direction="left"
+        logoHeight={48}
+        gap={40}
+        pauseOnHover
+        scaleOnHover
+        fadeOut
+        fadeOutColor="bg-yellow-400"
+        ariaLabel="Technology partners"
+      />
     </section>
   )
 }
