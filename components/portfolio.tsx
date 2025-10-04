@@ -12,8 +12,6 @@ import { usePortfolioData } from '@/hooks/use-portfolio-data'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import CircularGallery from './CircularGallery'
 import { downloadCV } from '@/utils/cv-download'
-import ScrollStack, { ScrollStackItem } from './ScrollStack'
-import SplashCursor from './SplashCursor'
 
 const sections = ['home', 'about', 'services', 'contact']
 
@@ -21,7 +19,7 @@ export default function Portfolio() {
   const { portfolioData, isLoading } = usePortfolioData()
   // const { skills } = useSkillsData()
   const activeSection = useScrollSpy(sections)
-  const { contactForm, isSubmitting, handleInputChange, handleSubmit } = useContactForm()
+  const { contactForm, isSubmitting, handleInputChange,errors, handleSubmit } = useContactForm()
 
   if (isLoading || !portfolioData) {
     return <NewLoading />
@@ -29,9 +27,6 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="hidden md:block">
-        <SplashCursor />
-      </div>
       <Navigation activeSection={activeSection} />
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
@@ -97,6 +92,7 @@ export default function Portfolio() {
         contactForm={contactForm}
         isSubmitting={isSubmitting}
         onInputChange={handleInputChange}
+        errors={errors}
         onSubmit={handleSubmit}
       />
       <Footer />

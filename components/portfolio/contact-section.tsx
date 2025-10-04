@@ -1,16 +1,12 @@
 'use client'
 
-import type React from 'react'
+import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
-import { error } from 'console'
-import { useState } from 'react'
-import { contactFormSchema } from '@/lib/validations'
-import { useToast } from '@/hooks/use-toast'
 
 interface ContactForm {
   firstName: string
@@ -19,6 +15,7 @@ interface ContactForm {
   subject: string
   message: string
 }
+
 
 interface ContactSectionProps {
   portfolioData: {
@@ -33,51 +30,42 @@ interface ContactSectionProps {
   }
   contactForm: ContactForm
   isSubmitting: boolean
+  errors: Partial<ContactForm>
   onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onSubmit: (e: React.FormEvent) => void
 }
+
+const FormInput = React.memo(function FormInput({
+  name,
+  value,
+  placeholder,
+  error,
+  onChange,
+}: {
+  name: string
+  value: string
+  placeholder: string
+  error?: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+}) {
+  return (
+    <div className="flex flex-col">
+      <Input name={name} value={value} placeholder={placeholder} onChange={onChange} />
+      {error && <p className="text-sm text-red-500">{error}</p>}
+    </div>
+  )
+})
+
 
 export default function ContactSection({
   portfolioData,
   contactForm,
   isSubmitting,
   onInputChange,
+  errors,
   onSubmit,
 }: ContactSectionProps) {
- const [errors, setErrors] = useState<Partial<ContactForm>>({})
- const { toast } = useToast()
-
-
- const handleSubmit = async (e: React.FormEvent) => {
-   e.preventDefault()
-   const result = contactFormSchema.safeParse(contactForm)
-
-   if (!result.success) {
-     const fieldErrors: Partial<ContactForm> = {}
-     result.error.errors.forEach(err => {
-       const field = err.path[0] as keyof ContactForm
-       fieldErrors[field] = err.message
-     })
-     setErrors(fieldErrors)
-     return
-   }
-
-   setErrors({})
-  try {
-    await onSubmit(e) // await here!
-    toast({
-      title: 'Success',
-      description: 'Message has been sent!',
-    })
-  } catch (err) {
-    console.error(err)
-    toast({
-      title: 'Error',
-      description: 'Failed to send message',
-      variant: 'destructive',
-    })
-  }
- }
+  // const [errors, setErrors] = useState<Partial<ContactForm>>({})
 
   return (
     <section id="contact" className="bg-white px-4 py-16">
@@ -150,45 +138,38 @@ export default function ContactSection({
           <div>
             <Card className="border-none shadow-xl">
               <CardContent className="p-6">
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={onSubmit} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
-                    <Input
+                    <FormInput
                       name="firstName"
-                      placeholder="First Name"
-                      className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                       value={contactForm.firstName}
+                      placeholder="First Name"
+                      error={errors.firstName}
                       onChange={onInputChange}
                     />
-                    {errors.firstName && <p className="text-sm text-red-500">{errors.firstName}</p>}
-
-                    <Input
+                    <FormInput
                       name="lastName"
-                      placeholder="Last Name"
-                      className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                       value={contactForm.lastName}
+                      placeholder="Last Name"
+                      error={errors.lastName}
                       onChange={onInputChange}
                     />
-                    {errors.lastName && <p className="text-sm text-red-500">{errors.lastName}</p>}
                   </div>
-                  <Input
+                  <FormInput
                     name="email"
-                    placeholder="Email"
-                    type="email"
-                    className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                     value={contactForm.email}
+                    placeholder="Email"
+                    error={errors.email}
                     onChange={onInputChange}
                   />
-                  {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
-
-                  <Input
+                  <FormInput
                     name="subject"
-                    placeholder="Subject"
-                    className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                     value={contactForm.subject}
+                    placeholder="Subject"
+                    error={errors.subject}
                     onChange={onInputChange}
                   />
-                  {errors.subject && <p className="text-sm text-red-500">{errors.subject}</p>}
-
+                  
                   <Textarea
                     name="message"
                     placeholder="Your Message"

@@ -4,6 +4,7 @@ import type React from 'react'
 
 import { useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
+import { contactFormSchema } from '@/lib/validations'
 
 interface ContactForm {
   firstName: string
@@ -16,6 +17,7 @@ interface ContactForm {
 export function useContactForm() {
   const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactForm, string>>>({})
   const [contactForm, setContactForm] = useState<ContactForm>({
     firstName: '',
     lastName: '',
@@ -35,6 +37,21 @@ export function useContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+
+    // Validate form with Zod
+    const parsed = contactFormSchema.safeParse(contactForm)
+    if (!parsed.success) {
+      const fieldErrors: Partial<Record<keyof ContactForm, string>> = {}
+      parsed.error.errors.forEach(err => {
+        const key = err.path[0] as keyof ContactForm
+        fieldErrors[key] = err.message
+      })
+      setErrors(fieldErrors)
+      setIsSubmitting(false)
+      return
+    }
+
+    setErrors({}) // clear previous errors
 
     try {
       const response = await fetch('/api/contact', {
@@ -81,6 +98,7 @@ export function useContactForm() {
     contactForm,
     isSubmitting,
     handleInputChange,
+    errors,
     handleSubmit,
   }
 }
