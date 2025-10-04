@@ -35,6 +35,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
+import LoadingSpinner from '@/components/portfolio/loading-spinner'
 
 export default function ContactsPage() {
   const { data: session, status } = useSession()
@@ -174,7 +175,9 @@ export default function ContactsPage() {
   )
 
   if (status === 'loading') {
-    return <div>Loading...</div>
+    return <div>
+      <LoadingSpinner/>
+    </div>
   }
 
   if (!session) {
@@ -203,24 +206,24 @@ export default function ContactsPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <div>
+                <div className='space-y-2'>
                   <CardTitle>Contact Submissions</CardTitle>
                   <CardDescription>
                     View and manage messages from your portfolio contact form
                   </CardDescription>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="md:flex md:flex-row space-y-2 md:space-y-0 items-center md:space-x-2">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-gray-400" />
                     <Input
                       placeholder="Search contacts..."
                       value={searchTerm}
                       onChange={e => setSearchTerm(e.target.value)}
-                      className="w-64 pl-10"
+                      className="w-40 md:w-64 pl-10"
                     />
                   </div>
                   <Select value={filterStatus} onValueChange={setFilterStatus}>
-                    <SelectTrigger className="w-32">
+                    <SelectTrigger className="md:w-15 ">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

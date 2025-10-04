@@ -12,6 +12,9 @@ import { usePortfolioData } from '@/hooks/use-portfolio-data'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import CircularGallery from './CircularGallery'
 import { downloadCV } from '@/utils/cv-download'
+import ScrollStack, { ScrollStackItem }  from './ScrollStack'
+import SplashCursor from './SplashCursor'
+
 
 const sections = ['home', 'about', 'services', 'contact']
 
@@ -27,6 +30,7 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SplashCursor />
       <Navigation activeSection={activeSection} />
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
@@ -34,52 +38,58 @@ export default function Portfolio() {
       <ProjectsSection />
 
       <div style={{ height: '600px', position: 'relative' }}>
-      <CircularGallery bend={1} textColor="black" borderRadius={0.05} scrollEase={0.02} items={
-        [
-          {
-           image : `IMG_4878.JPEG`,
-           text : ""
-          },
-          {
-           image : `IMG_0115.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_0243.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_0673.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_4721.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_5092.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_5454.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_6837.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_7101.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_7732.JPG`,
-           text : ""
-          },
-          {
-           image : `IMG_9792.DNG`,
-           text : ""
-          },]}/>
+        <CircularGallery
+          bend={1}
+          textColor="black"
+          borderRadius={0.05}
+          scrollEase={0.02}
+          items={[
+            {
+              image: `IMG_4878.JPEG`,
+              text: '',
+            },
+            {
+              image: `IMG_0115.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_0243.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_0673.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_4721.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_5092.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_5454.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_6837.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_7101.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_7732.JPG`,
+              text: '',
+            },
+            {
+              image: `IMG_9792.DNG`,
+              text: '',
+            },
+          ]}
+        />
       </div>
       <ContactSection
         portfolioData={portfolioData}

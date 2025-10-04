@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Oswald } from 'next/font/google'
 import { icons } from 'lucide-react';
+import { Toaster } from '@/components/ui/toaster';
 
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '700'] })
 
@@ -40,7 +41,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={oswald.className}>{children}</body>
+      <body className={oswald.className}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   )
 }

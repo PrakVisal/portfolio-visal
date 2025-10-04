@@ -7,6 +7,10 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
+import { error } from 'console'
+import { useState } from 'react'
+import { contactFormSchema } from '@/lib/validations'
+import { useToast } from '@/hooks/use-toast'
 
 interface ContactForm {
   firstName: string
@@ -40,6 +44,40 @@ export default function ContactSection({
   onInputChange,
   onSubmit,
 }: ContactSectionProps) {
+ const [errors, setErrors] = useState<Partial<ContactForm>>({})
+ const { toast } = useToast()
+
+
+ const handleSubmit = async (e: React.FormEvent) => {
+   e.preventDefault()
+   const result = contactFormSchema.safeParse(contactForm)
+
+   if (!result.success) {
+     const fieldErrors: Partial<ContactForm> = {}
+     result.error.errors.forEach(err => {
+       const field = err.path[0] as keyof ContactForm
+       fieldErrors[field] = err.message
+     })
+     setErrors(fieldErrors)
+     return
+   }
+
+   setErrors({})
+   try{
+    onSubmit(e)
+    toast({
+      title: 'Success',
+      description: 'Message has been sent!',
+    })
+   }catch(err){
+    toast({
+      title: 'Error',
+      description: 'Failed to send message',
+      variant: 'destructive',
+    })
+   }
+ }
+
   return (
     <section id="contact" className="bg-white px-4 py-16">
       <div className="container mx-auto">
@@ -111,7 +149,7 @@ export default function ContactSection({
           <div>
             <Card className="border-none shadow-xl">
               <CardContent className="p-6">
-                <form onSubmit={onSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <Input
                       name="firstName"
@@ -119,16 +157,17 @@ export default function ContactSection({
                       className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                       value={contactForm.firstName}
                       onChange={onInputChange}
-                      required
                     />
+                    {errors.firstName && <p className="text-sm text-red-500">{errors.firstName}</p>}
+
                     <Input
                       name="lastName"
                       placeholder="Last Name"
                       className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                       value={contactForm.lastName}
                       onChange={onInputChange}
-                      required
                     />
+                    {errors.lastName && <p className="text-sm text-red-500">{errors.lastName}</p>}
                   </div>
                   <Input
                     name="email"
@@ -137,16 +176,18 @@ export default function ContactSection({
                     className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                     value={contactForm.email}
                     onChange={onInputChange}
-                    required
                   />
+                  {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+
                   <Input
                     name="subject"
                     placeholder="Subject"
                     className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                     value={contactForm.subject}
                     onChange={onInputChange}
-                    required
                   />
+                  {errors.subject && <p className="text-sm text-red-500">{errors.subject}</p>}
+
                   <Textarea
                     name="message"
                     placeholder="Your Message"
@@ -154,8 +195,8 @@ export default function ContactSection({
                     className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500"
                     value={contactForm.message}
                     onChange={onInputChange}
-                    required
                   />
+                  {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
                   <Button
                     type="submit"
                     className="w-full bg-yellow-400 text-black shadow-lg transition-all duration-300 hover:bg-yellow-500 hover:shadow-xl"
@@ -170,6 +211,7 @@ export default function ContactSection({
                       'Contact me'
                     )}
                   </Button>
+                  {/* {success && <p className="text-sm text-green-500">Message has been sent</p>} */}
                 </form>
               </CardContent>
             </Card>

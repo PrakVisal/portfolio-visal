@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import LogoLoop from '../LogoLoop'
-import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si'
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiPostgresql, SiSpringboot, SiFlutter, SiFigma, SiJavascript, SiDocker, SiGithub, SiC } from 'react-icons/si'
 import RotatingText from '@/components/RotatingText'
 
 interface HeroSectionProps {
@@ -28,6 +28,13 @@ const techLogos = [
   { node: <SiNextdotjs />, title: 'Next.js', href: 'https://nextjs.org' },
   { node: <SiTypescript />, title: 'TypeScript', href: 'https://www.typescriptlang.org' },
   { node: <SiTailwindcss />, title: 'Tailwind CSS', href: 'https://tailwindcss.com' },
+  { node: <SiPostgresql />, title: 'Postgres', href: 'https://postgresql.com' },
+  { node: <SiSpringboot />, title: 'Spring Boot', href: 'https://springboot.com' },
+  { node: <SiFlutter />, title: 'Flutter', href: 'https://flutter.com' },
+  { node: <SiFigma />, title: 'Figma', href: 'https://figma.com' },
+  { node: <SiJavascript />, title: 'JavaScript', href: 'https://javascript.com' },
+  { node: <SiDocker />, title: 'Docker', href: 'https://docker.com' },
+  { node: <SiGithub />, title: 'Github', href: 'https://github.com' },
 ]
 
 export default function HeroSection({ portfolioData, onDownloadCV }: HeroSectionProps) {
@@ -129,7 +136,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
       <LogoLoop
         className="mt-20 flex flex-col justify-end"
         logos={techLogos}
-        speed={100}
+        speed={85}
         direction="left"
         logoHeight={48}
         gap={40}

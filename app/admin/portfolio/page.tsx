@@ -16,6 +16,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
+import LoadingSpinner from '@/components/portfolio/loading-spinner'
 // import ImageUploader from '@/components/admin/ImageUploader'
 
 export default function PortfolioPage() {
@@ -113,7 +114,7 @@ export default function PortfolioPage() {
   }
 
   if (status === 'loading' || isLoading) {
-    return <div>Loading...</div>
+    return <div><LoadingSpinner/></div>
   }
 
   if (!session || !portfolioData) {
