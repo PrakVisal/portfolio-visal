@@ -84,14 +84,14 @@ export interface Service {
 
 export interface ContactSubmission {
   id: number
-  firstName: string
-  lastName: string
+  first_name: string
+  last_name: string
   email: string
   subject: string
   message: string
-  isRead: boolean
-  isReplied: boolean
-  createdAt: string
+  is_read: boolean
+  is_replied: boolean
+  created_at: string
   // Add any other fields your app uses
 }
 

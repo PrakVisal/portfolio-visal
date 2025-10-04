@@ -101,11 +101,11 @@ export default function AdminLogin() {
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm text-gray-600">
+          {/* <div className="mt-4 text-center text-sm text-gray-600">
             <p>Default credentials:</p>
             <p>Email: admin@portfolio.com</p>
             <p>Password: admin123</p>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>

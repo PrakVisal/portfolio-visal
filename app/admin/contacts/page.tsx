@@ -77,6 +77,7 @@ export default function ContactsPage() {
 
       if (result.success) {
         setContacts(result.data.submissions)
+        console.log("DAAAATAAAA:",result.data.submissions)
         setTotalPages(result.data.pagination.totalPages)
       }
     } catch (error) {
@@ -95,12 +96,12 @@ export default function ContactsPage() {
       const response = await fetch(`/api/contact/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ isRead: true }),
+        body: JSON.stringify({ is_read: true }),
       })
 
       if (response.ok) {
         setContacts(
-          contacts.map(contact => (contact.id === id ? { ...contact, isRead: true } : contact))
+          contacts.map(contact => (contact.id === id ? { ...contact, is_read: true } : contact))
         )
         toast({
           title: 'Success',
@@ -121,12 +122,12 @@ export default function ContactsPage() {
       const response = await fetch(`/api/contact/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ isReplied: true }),
+        body: JSON.stringify({ is_replied: true }),
       })
 
       if (response.ok) {
         setContacts(
-          contacts.map(contact => (contact.id === id ? { ...contact, isReplied: true } : contact))
+          contacts.map(contact => (contact.id === id ? { ...contact, is_replied: true } : contact))
         )
         toast({
           title: 'Success',
@@ -168,31 +169,33 @@ export default function ContactsPage() {
 
   const filteredContacts = contacts.filter(
     contact =>
-      (contact.firstName?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
-      (contact.lastName?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
+      (contact.first_name?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
+      (contact.last_name?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
       (contact.email?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
-      (contact.subject?.toLowerCase() ?? '').includes(searchTerm.toLowerCase())
+      (contact.subject?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()),
   )
 
   if (status === 'loading') {
-    return <div>
-      <LoadingSpinner/>
-    </div>
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    )
   }
 
   if (!session) {
     return null
   }
 
+  console.log("FILLLTER DaTA:",filteredContacts)
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Desktop Sidebar */}
       <AdminSidebar className="hidden md:block" />
       {/* Mobile Sidebar Drawer */}
       <Drawer open={sidebarOpen} onOpenChange={setSidebarOpen}>
-        <DrawerContent className="md:hidden p-0 w-64">
-          <AdminSidebar onClose={() => setSidebarOpen(false)} className="block md:hidden h-full" />
-    
+        <DrawerContent className="w-64 p-0 md:hidden">
+          <AdminSidebar onClose={() => setSidebarOpen(false)} className="block h-full md:hidden" />
         </DrawerContent>
       </Drawer>
       <div className="flex flex-1 flex-col overflow-hidden">
@@ -206,24 +209,24 @@ export default function ContactsPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <div className='space-y-2'>
+                <div className="space-y-2">
                   <CardTitle>Contact Submissions</CardTitle>
                   <CardDescription>
                     View and manage messages from your portfolio contact form
                   </CardDescription>
                 </div>
-                <div className="md:flex md:flex-row space-y-2 md:space-y-0 items-center md:space-x-2">
+                <div className="items-center space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-gray-400" />
                     <Input
                       placeholder="Search contacts..."
                       value={searchTerm}
                       onChange={e => setSearchTerm(e.target.value)}
-                      className="w-40 md:w-64 pl-10"
+                      className="w-40 pl-10 md:w-64"
                     />
                   </div>
                   <Select value={filterStatus} onValueChange={setFilterStatus}>
-                    <SelectTrigger className="md:w-15 ">
+                    <SelectTrigger className="md:w-15">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -252,21 +255,21 @@ export default function ContactsPage() {
                     </TableHeader>
                     <TableBody>
                       {filteredContacts.map(contact => (
-                        <TableRow key={contact.id} className={!contact.isRead ? 'bg-blue-50' : ''}>
+                        <TableRow key={contact.id} className={!contact.is_read ? 'bg-blue-50' : ''}>
                           <TableCell className="font-medium">
-                            {contact.firstName} {contact.lastName}
+                            {contact.first_name}  {contact.last_name}
                           </TableCell>
                           <TableCell>{contact.email}</TableCell>
                           <TableCell className="max-w-xs truncate">{contact.subject}</TableCell>
-                          <TableCell>{new Date(contact.createdAt).toLocaleDateString()}</TableCell>
+                          <TableCell>{new Date(contact.created_at).toLocaleDateString()}</TableCell>
                           <TableCell>
                             <div className="flex space-x-1">
-                              {!contact.isRead && (
+                              {!contact.is_read && (
                                 <Badge variant="destructive" className="text-xs">
                                   Unread
                                 </Badge>
                               )}
-                              {contact.isReplied && (
+                              {contact.is_replied && (
                                 <Badge variant="default" className="text-xs">
                                   Replied
                                 </Badge>
@@ -282,7 +285,7 @@ export default function ContactsPage() {
                               >
                                 <Eye className="h-4 w-4" />
                               </Button>
-                              {!contact.isRead && (
+                              {!contact.is_read && (
                                 <Button
                                   variant="ghost"
                                   size="sm"
@@ -291,7 +294,7 @@ export default function ContactsPage() {
                                   <Mail className="h-4 w-4" />
                                 </Button>
                               )}
-                              {!contact.isReplied && (
+                              {!contact.is_replied && (
                                 <Button
                                   variant="ghost"
                                   size="sm"
@@ -357,7 +360,7 @@ export default function ContactsPage() {
           <DialogHeader>
             <DialogTitle>Contact Message Details</DialogTitle>
             <DialogDescription>
-              Message from {selectedContact?.firstName} {selectedContact?.lastName}
+              Message from {selectedContact?.first_name} {selectedContact?.last_name}
             </DialogDescription>
           </DialogHeader>
           {selectedContact && (
@@ -366,7 +369,7 @@ export default function ContactsPage() {
                 <div>
                   <label className="text-sm font-medium text-gray-500">Name</label>
                   <p className="text-sm">
-                    {selectedContact.firstName} {selectedContact.lastName}
+                    {selectedContact.first_name} {selectedContact.last_name}
                   </p>
                 </div>
                 <div>
@@ -386,27 +389,27 @@ export default function ContactsPage() {
               </div>
               <div className="flex items-center justify-between border-t pt-4">
                 <div className="text-xs text-gray-500">
-                  Received: {new Date(selectedContact.createdAt).toLocaleString()}
+                  Received: {new Date(selectedContact.created_at).toLocaleString()}
                 </div>
                 <div className="flex space-x-2">
-                  {!selectedContact.isRead && (
+                  {!selectedContact.is_read && (
                     <Button
                       size="sm"
                       onClick={() => {
                         markAsRead(selectedContact.id)
-                        setSelectedContact({ ...selectedContact, isRead: true })
+                        setSelectedContact({ ...selectedContact, is_read: true })
                       }}
                     >
                       Mark as Read
                     </Button>
                   )}
-                  {!selectedContact.isReplied && (
+                  {!selectedContact.is_replied && (
                     <Button
                       size="sm"
                       variant="outline"
                       onClick={() => {
                         markAsReplied(selectedContact.id)
-                        setSelectedContact({ ...selectedContact, isReplied: true })
+                        setSelectedContact({ ...selectedContact, is_replied: true })
                       }}
                     >
                       Mark as Replied
