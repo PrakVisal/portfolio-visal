@@ -63,19 +63,20 @@ export default function ContactSection({
    }
 
    setErrors({})
-   try{
-    onSubmit(e)
+  try {
+    await onSubmit(e) // await here!
     toast({
       title: 'Success',
       description: 'Message has been sent!',
     })
-   }catch(err){
+  } catch (err) {
+    console.error(err)
     toast({
       title: 'Error',
       description: 'Failed to send message',
       variant: 'destructive',
     })
-   }
+  }
  }
 
   return (
