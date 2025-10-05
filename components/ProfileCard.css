@@ -291,10 +291,10 @@
     --card-opacity: 1 !important;
   }
 
-    /* .pc-card {
+    .pc-card {
       transform: none !important;
       transition: none !important;
-    } */
+    }
 
   .pc-shine {
     opacity: 0.3 !important;
