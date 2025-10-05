@@ -6,6 +6,10 @@ import Image from 'next/image'
 import LogoLoop from '../LogoLoop'
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiPostgresql, SiSpringboot, SiFlutter, SiFigma, SiJavascript, SiDocker, SiGithub, SiC } from 'react-icons/si'
 import RotatingText from '@/components/RotatingText'
+import ProfileCard from '@/components/ProfileCard'
+
+
+
 
 interface HeroSectionProps {
   portfolioData: {
@@ -44,8 +48,8 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
       <div className="container mx-auto">
         <div className="grid grid-cols-1 items-center gap-x-8 gap-y-0 md:grid-cols-2">
           <div className="order-2 pt-20 md:order-1">
-            <div className="flex gap-2 items-center pb-1">
-              <h1 className=' font-bold md:text-5xl text-3xl '>Creative</h1>
+            <div className="flex items-center gap-2 pb-1">
+              <h1 className="text-3xl font-bold md:text-5xl">Creative</h1>
               <RotatingText
                 texts={['Thinking', 'Coding', 'Solving', 'Living!']}
                 mainClassName="md:text-5xl font-bold text-3xl px-2 sm:px-2 md:px-3 bg-teal-400 text-white overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
@@ -66,11 +70,11 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
             <p className="mb-8 text-xl text-gray-700 md:text-2xl">{portfolioData.title}</p>
 
             <div className="mb-8 flex flex-col gap-4 sm:flex-row">
-              <Button className="bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
+              <Button className="cursor-target bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
                 <a href="mailto:visalprak2015@email.com">Hire me</a>
               </Button>
               <Button
-                className="bg-white text-black shadow-lg transition-all duration-700 hover:bg-teal-500 hover:text-white hover:shadow-xl"
+                className="cursor-target bg-white text-black shadow-lg transition-all duration-700 hover:bg-teal-500 hover:text-white hover:shadow-xl"
                 onClick={onDownloadCV}
               >
                 Download CV
@@ -85,7 +89,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Instagram className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-pink-500" />
+                <Instagram className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-pink-500" />
               </a>
               <a
                 href={portfolioData.socialLinks.facebook}
@@ -94,7 +98,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Facebook className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-blue-600" />
+                <Facebook className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-blue-600" />
               </a>
               <a
                 href={portfolioData.socialLinks.twitter}
@@ -103,7 +107,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Twitter className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-teal-500" />
+                <Twitter className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-teal-500" />
               </a>
               <a
                 href={portfolioData.socialLinks.youtube}
@@ -112,7 +116,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Youtube className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-red-600" />
+                <Youtube className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-red-600" />
               </a>
             </div>
           </div>
@@ -120,13 +124,25 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
           <div className="relative top-10 order-1 flex justify-center md:order-2">
             <div className="relative">
               <div className="relative z-10 bg-yellow-400">
-                <Image
+                {/* <Image
                   src={'IMG_4949.PNG'}
                   alt="Visal - UI/UX Designer & Backend Developer"
                   width={250}
                   height={300}
                   className="rounded-lg border-2 border-black object-cover shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
                   priority
+                /> */}
+                <ProfileCard
+                  name=""
+                  title=""
+                  handle="sannnnnnnji"
+                  status="Online"
+                  contactText="Contact Me"
+                  avatarUrl="IMG_4949.PNG"
+                  showUserInfo={true}
+                  enableTilt={true}
+                  enableMobileTilt={true}
+                  onContactClick={() => window.open(portfolioData.socialLinks.instagram, '_blank')}
                 />
               </div>
             </div>

@@ -22,9 +22,9 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
             <div className="relative">
               <div className="absolute left-4 top-4 -z-10 h-64 w-64 rounded-full bg-teal-500 opacity-20"></div>
               <div className="relative z-10 rounded-full border border-gray-100 bg-white p-4 shadow-xl">
-                <div className="relative h-56 w-56 md:h-72 md:w-72 hover:scale-110 duration-300 transition-all">
+                <div className="relative h-56 w-56 transition-all duration-300 hover:scale-110 md:h-72 md:w-72">
                   <Image
-                    src={portfolioData.image_url || "pf.jpg"}
+                    src={portfolioData.image_url || 'pf.jpg'}
                     alt="Aqsam - About"
                     width={300}
                     height={300}
@@ -48,11 +48,11 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
               {portfolioData.description}
             </p>
             <div className="mb-8 flex flex-col gap-4 sm:flex-row">
-              <Button className="bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
-                  <a href="mailto:visalprak2015@email.com">Hire me</a>
+              <Button className="cursor-target bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
+                <a href="mailto:visalprak2015@email.com">Hire me</a>
               </Button>
               <Button
-                className="border-2 bg-white text-black shadow-lg transition-all duration-700 hover:border-white hover:bg-teal-500 hover:text-white hover:shadow-xl"
+                className="cursor-target border-2 bg-white text-black shadow-lg transition-all duration-700 hover:border-white hover:bg-teal-500 hover:text-white hover:shadow-xl"
                 onClick={onDownloadCV}
               >
                 Download CV

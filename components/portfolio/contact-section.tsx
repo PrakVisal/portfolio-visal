@@ -96,7 +96,7 @@ export default function ContactSection({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Instagram className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-pink-500" />
+                <Instagram className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-pink-500" />
               </a>
               <a
                 href={portfolioData.socialLinks.facebook}
@@ -105,7 +105,7 @@ export default function ContactSection({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Facebook className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-blue-600" />
+                <Facebook className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-blue-600" />
               </a>
               <a
                 href={portfolioData.socialLinks.twitter}
@@ -114,7 +114,7 @@ export default function ContactSection({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Twitter className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-teal-500" />
+                <Twitter className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-teal-500" />
               </a>
               <a
                 href={portfolioData.socialLinks.youtube}
@@ -123,7 +123,7 @@ export default function ContactSection({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Youtube className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-red-600" />
+                <Youtube className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-red-600" />
               </a>
             </div>
 
@@ -169,7 +169,7 @@ export default function ContactSection({
                     error={errors.subject}
                     onChange={onInputChange}
                   />
-                  
+
                   <Textarea
                     name="message"
                     placeholder="Your Message"
@@ -181,7 +181,7 @@ export default function ContactSection({
                   {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
                   <Button
                     type="submit"
-                    className="w-full bg-yellow-400 text-black shadow-lg transition-all duration-300 hover:bg-yellow-500 hover:shadow-xl"
+                    className="cursor-target w-full bg-yellow-400 text-black shadow-lg transition-all duration-300 hover:bg-yellow-500 hover:shadow-xl"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
