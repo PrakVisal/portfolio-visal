@@ -269,9 +269,20 @@
   opacity: calc(1.75 - var(--pointer-from-center));
 }
 /* Make image always visible on mobile */
+/* Force avatar to be visible on mobile */
 @media (max-width: 768px) {
   .pc-avatar-content .avatar {
     opacity: 1 !important;
+    display: block !important;
+  }
+
+  .pc-avatar-content {
+    opacity: 1 !important;
+  }
+
+  .pc-card * {
+    pointer-events: auto;
+    /* Allow touch events */
   }
 }
 
