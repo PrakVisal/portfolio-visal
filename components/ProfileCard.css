@@ -285,26 +285,22 @@
 
 
 
-/* Make image always visible on mobile */
+/* --- Fix: Always visible on mobile --- */
 @media (max-width: 768px) {
-  .pc-avatar-content {
-    display: block !important;
-    position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
-    opacity: 1 !important;
-    mix-blend-mode: normal !important;
+  .pc-card-wrapper {
+    --card-opacity: 1 !important;
   }
 
-  .pc-avatar-content .avatar {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    position: absolute !important;
-    left: 50% !important;
-    bottom: 2px !important;
-    transform: translateX(-50%) scale(1) !important;
-    opacity: 1 !important;
+  .pc-card {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .pc-shine {
+    opacity: 0.3 !important;
+    /* keep shine visible */
+    filter: brightness(0.9) contrast(1.1) saturate(0.8) opacity(0.3) !important;
+    animation: holo-bg 18s linear infinite !important;
   }
 }
 
