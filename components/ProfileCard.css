@@ -266,7 +266,9 @@
   left: 50%;
   transform: translateX(-50%) scale(1);
   bottom: 2px;
-  opacity: calc(1.75 - var(--pointer-from-center));
+  opacity: 1 !important;
+  display: block !important;
+  /* Add this */
 }
 /* Make image always visible on mobile */
 /* Force avatar to be visible on mobile */
