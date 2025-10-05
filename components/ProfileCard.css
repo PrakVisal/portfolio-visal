@@ -256,20 +256,35 @@
 }
 
 .pc-avatar-content {
-  mix-blend-mode: normal;
-  overflow: hidden;
+  mix-blend-mode: normal !important;
+  overflow: hidden !important;
+  display: block !important;
+  position: relative !important;
+  grid-area: 1/-1 !important;
+  pointer-events: none !important;
 }
-
 .pc-avatar-content .avatar {
-  width: 100%;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) scale(1);
-  bottom: 2px;
+  width: 100% !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) scale(1) !important;
+  bottom: 2px !important;
   opacity: 1 !important;
   display: block !important;
-  /* Add this */
+  grid-area: unset !important;
 }
+
+.pc-avatar-content .avatar img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  grid-area: unset !important;
+}
+
+
+
+
+
 /* Make image always visible on mobile */
 @media (max-width: 768px) {
   .pc-avatar-content {
