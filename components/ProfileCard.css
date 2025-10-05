@@ -272,19 +272,67 @@
 }
 /* Make image always visible on mobile */
 /* Force avatar to be visible on mobile */
+/* Force fix for avatar display on mobile and tablet */
 @media (max-width: 768px) {
-  .pc-avatar-content .avatar {
-    opacity: 1 !important;
-    display: block !important;
-  }
-
   .pc-avatar-content {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
     opacity: 1 !important;
+    mix-blend-mode: normal !important;
   }
 
-  .pc-card * {
-    pointer-events: auto;
-    /* Allow touch events */
+  .pc-avatar-content .avatar {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 2px !important;
+    transform: translateX(-50%) scale(1) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 10 !important;
+  }
+
+  .pc-avatar-content .avatar img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    opacity: 1 !important;
+  }
+}
+
+/* For smaller mobile screens */
+@media (max-width: 480px) {
+  .pc-avatar-content {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 1 !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .pc-avatar-content .avatar {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 2px !important;
+    transform: translateX(-50%) scale(1) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 10 !important;
+  }
+
+  .pc-avatar-content .avatar img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    opacity: 1 !important;
   }
 }
 
