@@ -28,8 +28,10 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white md:cursor-none cursor-pointer">
+      <div className="md:block hidden">
       <TargetCursor spinDuration={2} hideDefaultCursor={true} />
+      </div>
       <Navigation activeSection={activeSection} />
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
