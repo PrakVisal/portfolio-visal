@@ -70,11 +70,11 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
             <p className="mb-8 text-xl text-gray-700 md:text-2xl">{portfolioData.title}</p>
 
             <div className="mb-8 flex flex-col gap-4 sm:flex-row">
-              <Button className="cursor-target bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
+              <Button className="bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
                 <a href="mailto:visalprak2015@email.com">Hire me</a>
               </Button>
               <Button
-                className="cursor-target bg-white text-black shadow-lg transition-all duration-700 hover:bg-teal-500 hover:text-white hover:shadow-xl"
+                className="bg-white text-black shadow-lg transition-all duration-700 hover:bg-teal-500 hover:text-white hover:shadow-xl"
                 onClick={onDownloadCV}
               >
                 Download CV
@@ -89,7 +89,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Instagram className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-pink-500" />
+                <Instagram className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-pink-500" />
               </a>
               <a
                 href={portfolioData.socialLinks.facebook}
@@ -98,7 +98,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Facebook className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-blue-600" />
+                <Facebook className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-blue-600" />
               </a>
               <a
                 href={portfolioData.socialLinks.twitter}
@@ -107,7 +107,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Twitter className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-teal-500" />
+                <Twitter className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-teal-500" />
               </a>
               <a
                 href={portfolioData.socialLinks.youtube}
@@ -116,7 +116,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Youtube className="cursor-target h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-red-600" />
+                <Youtube className="h-6 w-6 text-gray-700 transition-colors duration-300 group-hover:text-red-600" />
               </a>
             </div>
           </div>

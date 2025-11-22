@@ -12,8 +12,6 @@ import { usePortfolioData } from '@/hooks/use-portfolio-data'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import CircularGallery from './CircularGallery'
 import { downloadCV } from '@/utils/cv-download'
-import TargetCursor from './TargetCursor';
-
 
 const sections = ['home', 'about', 'services', 'contact']
 
@@ -28,10 +26,7 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-white md:cursor-none cursor-pointer">
-      <div className="md:block hidden">
-      <TargetCursor spinDuration={2} hideDefaultCursor={true} />
-      </div>
+    <div className="min-h-screen bg-white">
       <Navigation activeSection={activeSection} />
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />

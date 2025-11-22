@@ -48,11 +48,11 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
               {portfolioData.description}
             </p>
             <div className="mb-8 flex flex-col gap-4 sm:flex-row">
-              <Button className="cursor-target bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
+              <Button className="bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
                 <a href="mailto:visalprak2015@email.com">Hire me</a>
               </Button>
               <Button
-                className="cursor-target border-2 bg-white text-black shadow-lg transition-all duration-700 hover:border-white hover:bg-teal-500 hover:text-white hover:shadow-xl"
+                className="border-2 bg-white text-black shadow-lg transition-all duration-700 hover:border-white hover:bg-teal-500 hover:text-white hover:shadow-xl"
                 onClick={onDownloadCV}
               >
                 Download CV

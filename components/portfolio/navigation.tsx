@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import TargetCursor from '../TargetCursor';
 
 interface NavigationProps {
   activeSection: string
@@ -44,7 +43,7 @@ export default function Navigation({ activeSection }: NavigationProps) {
           </div>
           {/* Hamburger for mobile */}
           <button
-            className="cursor-target rounded p-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 md:hidden"
+            className="rounded p-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 md:hidden"
             aria-label="Open menu"
             onClick={() => setMobileOpen(true)}
           >
