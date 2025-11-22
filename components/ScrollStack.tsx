@@ -59,6 +59,9 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   const cardsRef = useRef<HTMLElement[]>([])
   const lastTransformsRef = useRef(new Map<number, any>())
   const isUpdatingRef = useRef(false)
+  const cardPositionsRef = useRef(new Map<number, number>())
+  const endElementRef = useRef<HTMLElement | null>(null)
+  const rafIdRef = useRef<number | null>(null)
 
   const calculateProgress = useCallback((scrollTop: number, start: number, end: number) => {
     if (scrollTop < start) return 0
@@ -102,25 +105,51 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     [useWindowScroll]
   )
 
+  const updateCardPositions = useCallback(() => {
+    cardsRef.current.forEach((card, i) => {
+      if (card) {
+        const position = getElementOffset(card)
+        cardPositionsRef.current.set(i, position)
+      }
+    })
+    if (endElementRef.current) {
+      const endPos = getElementOffset(endElementRef.current)
+      cardPositionsRef.current.set(-1, endPos)
+    }
+  }, [getElementOffset])
+
   const updateCardTransforms = useCallback(() => {
-    if (!cardsRef.current.length || isUpdatingRef.current) return
+    if (!cardsRef.current.length || isUpdatingRef.current) {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
+      return
+    }
 
     isUpdatingRef.current = true
 
-    const { scrollTop, containerHeight, scrollContainer } = getScrollData()
+    const { scrollTop, containerHeight } = getScrollData()
     const stackPositionPx = parsePercentage(stackPosition, containerHeight)
     const scaleEndPositionPx = parsePercentage(scaleEndPosition, containerHeight)
+    const endElementTop = cardPositionsRef.current.get(-1) || 0
 
-    const endElement = useWindowScroll
-      ? (document.querySelector('.scroll-stack-end') as HTMLElement | null)
-      : (scrollerRef.current?.querySelector('.scroll-stack-end') as HTMLElement | null)
-
-    const endElementTop = endElement ? getElementOffset(endElement) : 0
+    // Calculate top card index once for blur optimization
+    let topCardIndex = 0
+    if (blurAmount) {
+      for (let j = 0; j < cardsRef.current.length; j++) {
+        const jCardTop = cardPositionsRef.current.get(j) || getElementOffset(cardsRef.current[j])
+        const jTriggerStart = jCardTop - stackPositionPx - itemStackDistance * j
+        if (scrollTop >= jTriggerStart) {
+          topCardIndex = j
+        }
+      }
+    }
 
     cardsRef.current.forEach((card, i) => {
       if (!card) return
 
-      const cardTop = getElementOffset(card)
+      const cardTop = cardPositionsRef.current.get(i) || getElementOffset(card)
       const triggerStart = cardTop - stackPositionPx - itemStackDistance * i
       const triggerEnd = cardTop - scaleEndPositionPx
       const pinStart = cardTop - stackPositionPx - itemStackDistance * i
@@ -132,20 +161,9 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       const rotation = rotationAmount ? i * rotationAmount * scaleProgress : 0
 
       let blur = 0
-      if (blurAmount) {
-        let topCardIndex = 0
-        for (let j = 0; j < cardsRef.current.length; j++) {
-          const jCardTop = getElementOffset(cardsRef.current[j])
-          const jTriggerStart = jCardTop - stackPositionPx - itemStackDistance * j
-          if (scrollTop >= jTriggerStart) {
-            topCardIndex = j
-          }
-        }
-
-        if (i < topCardIndex) {
-          const depthInStack = topCardIndex - i
-          blur = Math.max(0, depthInStack * blurAmount)
-        }
+      if (blurAmount && i < topCardIndex) {
+        const depthInStack = topCardIndex - i
+        blur = Math.max(0, depthInStack * blurAmount)
       }
 
       let translateY = 0
@@ -194,6 +212,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     })
 
     isUpdatingRef.current = false
+    rafIdRef.current = null
   }, [
     itemScale,
     itemStackDistance,
@@ -211,7 +230,10 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   ])
 
   const handleScroll = useCallback(() => {
-    updateCardTransforms()
+    if (rafIdRef.current) return
+    rafIdRef.current = requestAnimationFrame(() => {
+      updateCardTransforms()
+    })
   }, [updateCardTransforms])
 
   const setupLenis = useCallback(() => {
@@ -273,42 +295,82 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   useLayoutEffect(() => {
     if (!useWindowScroll && !scrollerRef.current) return
 
-    const cards = Array.from(
-      useWindowScroll
-        ? document.querySelectorAll('.scroll-stack-card')
-        : (scrollerRef.current?.querySelectorAll('.scroll-stack-card') ?? [])
-    ) as HTMLElement[]
-    cardsRef.current = cards
+    let cleanupFn: (() => void) | null = null
     const transformsCache = lastTransformsRef.current
 
-    cards.forEach((card, i) => {
-      if (i < cards.length - 1) {
-        card.style.marginBottom = `${itemDistance}px`
+    // Small delay to ensure DOM is ready
+    const initTimeout = setTimeout(() => {
+      const cards = Array.from(
+        useWindowScroll
+          ? document.querySelectorAll('.scroll-stack-card')
+          : (scrollerRef.current?.querySelectorAll('.scroll-stack-card') ?? [])
+      ) as HTMLElement[]
+      cardsRef.current = cards
+
+      const endElement = useWindowScroll
+        ? (document.querySelector('.scroll-stack-end') as HTMLElement | null)
+        : (scrollerRef.current?.querySelector('.scroll-stack-end') as HTMLElement | null)
+      endElementRef.current = endElement
+
+      cards.forEach((card, i) => {
+        if (i < cards.length - 1) {
+          card.style.marginBottom = `${itemDistance}px`
+        }
+        card.style.willChange = 'transform, filter'
+        card.style.transformOrigin = 'top center'
+        card.style.backfaceVisibility = 'hidden'
+        card.style.transform = 'translateZ(0)'
+        card.style.webkitTransform = 'translateZ(0)'
+        card.style.perspective = '1000px'
+        card.style.webkitPerspective = '1000px'
+        // Force GPU acceleration
+        card.style.isolation = 'isolate'
+      })
+
+      // Cache initial positions
+      updateCardPositions()
+
+      setupLenis()
+
+      // Initial update
+      requestAnimationFrame(() => {
+        updateCardTransforms()
+      })
+
+      // Recalculate positions on resize
+      const handleResize = () => {
+        updateCardPositions()
+        requestAnimationFrame(() => {
+          updateCardTransforms()
+        })
       }
-      card.style.willChange = 'transform, filter'
-      card.style.transformOrigin = 'top center'
-      card.style.backfaceVisibility = 'hidden'
-      card.style.transform = 'translateZ(0)'
-      card.style.webkitTransform = 'translateZ(0)'
-      card.style.perspective = '1000px'
-      card.style.webkitPerspective = '1000px'
-    })
+      window.addEventListener('resize', handleResize, { passive: true })
 
-    setupLenis()
-
-    updateCardTransforms()
+      cleanupFn = () => {
+        window.removeEventListener('resize', handleResize)
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current)
+        }
+        if (rafIdRef.current) {
+          cancelAnimationFrame(rafIdRef.current)
+        }
+        if (lenisRef.current) {
+          lenisRef.current.destroy()
+        }
+        stackCompletedRef.current = false
+        cardsRef.current = []
+        transformsCache.clear()
+        cardPositionsRef.current.clear()
+        isUpdatingRef.current = false
+        endElementRef.current = null
+      }
+    }, 0)
 
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
+      clearTimeout(initTimeout)
+      if (cleanupFn) {
+        cleanupFn()
       }
-      if (lenisRef.current) {
-        lenisRef.current.destroy()
-      }
-      stackCompletedRef.current = false
-      cardsRef.current = []
-      transformsCache.clear()
-      isUpdatingRef.current = false
     }
   }, [
     itemDistance,
@@ -324,6 +386,8 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     onStackComplete,
     setupLenis,
     updateCardTransforms,
+    updateCardPositions,
+    itemDistance,
   ])
 
   return (
