@@ -30,11 +30,11 @@ interface AboutSectionProps {
 
 const skills = [
   { name: 'UI/UX Design', color: 'bg-yellow-400', icon: Palette },
-  { name: 'Backend Dev', color: 'bg-teal-400', icon: Zap },
+  { name: 'Backend Dev', color: 'bg-yellow-400', icon: Zap },
   { name: 'Frontend', color: 'bg-yellow-400', icon: Code },
-  { name: 'Full Stack', color: 'bg-teal-400', icon: Rocket },
+  { name: 'Full Stack', color: 'bg-yellow-400', icon: Rocket },
   { name: 'Problem Solving', color: 'bg-yellow-400', icon: Puzzle },
-  { name: 'Creative', color: 'bg-teal-400', icon: Sparkles },
+  { name: 'Creative', color: 'bg-yellow-400', icon: Sparkles },
 ]
 
 const educationData = [
@@ -102,13 +102,10 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
       <div className="container relative z-10 mx-auto">
         {/* Header with animated icon */}
         <div className="mb-16 text-center">
-          <div className="mb-4 inline-block animate-bounce">
-            <Hand className="h-16 w-16 text-black" />
-          </div>
           <h2 className="mb-4 text-5xl font-black text-black md:text-7xl">
             About Me
           </h2>
-          <div className="mx-auto h-1 w-24 bg-gradient-to-r from-yellow-400 via-teal-400 to-yellow-400" />
+          <div className="mx-auto h-1 w-24 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-200" />
         </div>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -246,22 +243,18 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
             {/* Timeline */}
             <div className="relative">
               {/* Vertical line */}
-              <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-yellow-400 via-teal-400 to-yellow-400" />
+              <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-yellow-500 via-yellow-200 to-yellow-400" />
 
               {/* Education entries */}
               <div className="space-y-12">
                 {educationData.map((education, idx) => (
                   <div key={idx} className="relative pl-16">
                     {/* Timeline dot */}
-                    <div className={`absolute left-4 top-3 h-5 w-5 rounded-full border-3 border-black ${
-                      idx % 2 === 0 ? 'bg-yellow-400' : 'bg-teal-400'
-                    } shadow-lg`} />
+                    <div className={`absolute left-4 top-3 h-5 w-5 rounded-full border-3 border-black bg-yellow-400 shadow-lg`} />
                     
                     {/* Date */}
                     <div className="mb-4">
-                      <div className={`inline-block rounded-full px-4 py-2 text-sm font-bold text-black shadow-md ${
-                        idx % 2 === 0 ? 'bg-yellow-400' : 'bg-teal-400'
-                      }`}>
+                      <div className={`inline-block rounded-full px-4 py-2 text-sm font-bold text-black shadow-md bg-yellow-400`}>
                         {education.year}
                       </div>
                     </div>
@@ -280,9 +273,7 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
                           <ul className="space-y-2 text-sm leading-relaxed text-black md:text-base">
                             {course.description.map((desc, descIdx) => (
                               <li key={descIdx} className="flex items-start">
-                                <span className={`mr-3 mt-2 h-2 w-2 flex-shrink-0 rounded-full ${
-                                  idx % 2 === 0 ? 'bg-yellow-400' : 'bg-teal-400'
-                                }`} />
+                                <span className={`mr-3 mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-teal-700`} />
                                 <span>{desc}</span>
                               </li>
                             ))}

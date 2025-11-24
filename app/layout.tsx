@@ -1,7 +1,5 @@
-import type { Metadata } from 'next'
 import './globals.css'
 import { Oswald } from 'next/font/google'
-import { icons } from 'lucide-react';
 import { Toaster } from '@/components/ui/toaster';
 
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '700'] })
@@ -9,11 +7,11 @@ const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '700'] })
 // app/page.tsx or app/portfolio/page.tsx
 export const metadata = {
   icons: "cartoonpf-modified.png",
-  title: "Prak Visal | UI/UX Designer & Backend Developer",
-  description: "Portfolio of Prak Visal, UI/UX Designer and Backend Developer based in Cambodia.",
-  keywords: "UI/UX, Designer, Developer, Portfolio, Cambodia, Prak Visal, Backend Developer, prakvisal, visal, visalprak",
+  title: "Prak Visal | Backend Developer",
+  description: "Portfolio of Prak Visal, Backend Developer based in Cambodia.",
+  keywords: "UI/UX, Designer, Developer, Portfolio, Cambodia, Prak Visal, Backend Developer, prakvisal, visal, visalprak, fullstack, backend, frontend, developer, portfolio, cambodia, prakvisal, backenddeveloper, fullstackdeveloper, frontenddeveloper, portfolio, cambodia, prakvisal, backenddeveloper, fullstackdeveloper, frontenddeveloper",
   openGraph: {
-    title: "Prak Visal | UI/UX Designer & Backend Developer",
+    title: "Prak Visal | Backend Developer",
     description: "Portfolio of Prak Visal, UI/UX Designer and Backend Developer based in Cambodia.",
     url: "https://prakvisal.vercel.app",
     images: [
@@ -28,8 +26,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prak Visal | UI/UX Designer & Developer",
-    description: "Portfolio of Prak Visal, UI/UX Designer and Backend Developer based in Cambodia.",
+    title: "Prak Visal | Backend Developer",
+    description: "Portfolio of Prak Visal, Backend Developer based in Cambodia.",
     images: ["https://prakvisal.vercel.app/pf.jpg"],
   },
 };
