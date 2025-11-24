@@ -10,6 +10,9 @@ export const metadata = {
   title: "Prak Visal | Backend Developer",
   description: "Portfolio of Prak Visal, Backend Developer based in Cambodia.",
   keywords: "UI/UX, Designer, Developer, Portfolio, Cambodia, Prak Visal, Backend Developer, prakvisal, visal, visalprak, fullstack, backend, frontend, developer, portfolio, cambodia, prakvisal, backenddeveloper, fullstackdeveloper, frontenddeveloper, portfolio, cambodia, prakvisal, backenddeveloper, fullstackdeveloper, frontenddeveloper",
+  verification: {
+    google: "CxErQ6GffzdUmT3bvj1F5bJYjhZ7pSOhe-XdZ-Pv8Wo",
+  },
   openGraph: {
     title: "Prak Visal | Backend Developer",
     description: "Portfolio of Prak Visal, UI/UX Designer and Backend Developer based in Cambodia.",
