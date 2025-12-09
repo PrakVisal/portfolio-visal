@@ -224,7 +224,23 @@ SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
 SMTP_PASS=your-app-password
 ADMIN_EMAIL=admin@yourportfolio.com
+NEXT_PUBLIC_SOCKET_URL=https://your-socket-server-url.com
 \`\`\`
+
+### Chat Feature Deployment
+
+The portfolio includes a real-time chat feature powered by WebSockets. Since Vercel is serverless, you need to deploy the WebSocket server separately.
+
+**Quick Setup:**
+
+1. Deploy the WebSocket server to [Railway](https://railway.app), [Render](https://render.com), or [Fly.io](https://fly.io)
+2. Set `NEXT_PUBLIC_SOCKET_URL` in Vercel environment variables
+3. See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions
+
+**For local development:**
+
+- Run \`npm run dev\` (includes integrated WebSocket server)
+- Or run separately: \`npm run dev:next\` and \`npm run dev:socket\`
 
 ### Build Optimization
 

@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-chat-server",
+  "version": "1.0.0",
+  "description": "WebSocket server for portfolio chat feature",
+  "main": "socket-server.js",
+  "scripts": {
+    "start": "node socket-server.js"
+  },
+  "dependencies": {
+    "socket.io": "^4.8.1"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
+

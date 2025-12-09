@@ -30,13 +30,18 @@ export function useChat(): UseChatReturn {
 
   useEffect(() => {
     // Initialize socket connection
-    // In production, use the same origin; in development, use localhost
+    // Use environment variable for production, fallback to localhost for development
     const socketUrl =
-      typeof window !== 'undefined'
-        ? window.location.origin
-        : process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3000'
+      process.env.NEXT_PUBLIC_SOCKET_URL ||
+      (typeof window !== 'undefined' && window.location.hostname === 'localhost'
+        ? 'http://localhost:3001'
+        : window.location.origin)
+    
     const socket = io(socketUrl, {
       transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionAttempts: 5,
     })
 
     socketRef.current = socket
