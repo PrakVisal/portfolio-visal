@@ -12,6 +12,7 @@ import { usePortfolioData } from '@/hooks/use-portfolio-data'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import CircularGallery from './CircularGallery'
 import { downloadCV } from '@/utils/cv-download'
+import ChatWidget from './portfolio/chat-widget'
 
 const sections = ['home', 'about', 'services', 'contact']
 
@@ -96,6 +97,7 @@ export default function Portfolio() {
         onSubmit={handleSubmit}
       />
       <Footer />
+      <ChatWidget />
     </div>
   )
 }
