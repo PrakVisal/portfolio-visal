@@ -40,7 +40,7 @@ export default function ProjectsSection() {
       technologies: 'Next.js, Spring Boot, PostgreSQL',
       github_url: undefined,
       live_url: undefined,
-      color: 'bg-purple-800',
+      color: 'bg-purple-300',
     },
     {
       id: 2,
@@ -50,7 +50,7 @@ export default function ProjectsSection() {
       technologies: 'Next.js, Spring Boot, PostgreSQL',
       github_url: undefined,
       live_url: undefined,
-      color: 'bg-blue-800',
+      color: 'bg-blue-300',
     },
   ]
 
