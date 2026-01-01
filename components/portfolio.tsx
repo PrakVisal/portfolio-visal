@@ -97,7 +97,6 @@ export default function Portfolio() {
         onSubmit={handleSubmit}
       />
       <Footer />
-      <ChatWidget />
     </div>
   )
 }
