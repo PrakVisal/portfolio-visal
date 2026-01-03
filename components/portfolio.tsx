@@ -5,7 +5,6 @@ import Footer from '@/components/portfolio/footer'
 import HeroSection from '@/components/portfolio/hero-section'
 import NewLoading from './ui/loading-spinner'
 import Navigation from '@/components/portfolio/navigation'
-import ServicesSection from '@/components/portfolio/services-section'
 import ProjectsSection from '@/components/portfolio/projects-section'
 import { useContactForm } from '@/hooks/use-contact-form'
 import { usePortfolioData } from '@/hooks/use-portfolio-data'
@@ -14,7 +13,7 @@ import CircularGallery from './CircularGallery'
 import { downloadCV } from '@/utils/cv-download'
 import ChatWidget from './portfolio/chat-widget'
 
-const sections = ['home', 'about', 'services', 'contact']
+const sections = ['home', 'about', 'projects', 'contact']
 
 export default function Portfolio() {
   const { portfolioData, isLoading } = usePortfolioData()
@@ -31,7 +30,7 @@ export default function Portfolio() {
       <Navigation activeSection={activeSection} />
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
-      <ServicesSection />
+      {/* <ServicesSection /> */}
       <ProjectsSection />
 
       <div style={{ height: '600px', position: 'relative' }}>
