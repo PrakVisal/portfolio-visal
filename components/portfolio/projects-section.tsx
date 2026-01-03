@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack"
+import { FolderKanban } from "lucide-react"
 
 interface Project {
   id: number
@@ -63,12 +64,27 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="bg-gray-50">
-      <div className="container mx-auto px-4 py-16">
-        <h2 className="mb-4 text-center text-3xl font-bold text-gray-900">Projects</h2>
-        <p className="mx-auto mb-12 max-w-3xl text-center leading-relaxed text-gray-600">
-          Explore some of my recent work, featuring a blend of design, development, and innovation.
-        </p>
+    <section id="projects" className="relative overflow-hidden bg-white px-4 py-20 md:py-28">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="container mx-auto relative z-10">
+        {/* Header */}
+        <div className="mb-16 text-center">
+          <div className="inline-flex items-center justify-center mb-4 w-20 h-20 rounded-full bg-yellow-400 shadow-lg">
+            <FolderKanban className="h-10 w-10 text-black" />
+          </div>
+          <p className="mb-3 text-lg md:text-xl text-gray-600 font-medium">
+            Check out some of my recent work and creative projects!
+          </p>
+          <h2 className="text-4xl md:text-6xl font-black text-black mb-2">
+            Projects
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-teal-400 mx-auto rounded-full"></div>
+        </div>
       </div>
       <ScrollStack
         useWindowScroll={true}
