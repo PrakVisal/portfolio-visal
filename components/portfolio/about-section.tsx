@@ -95,8 +95,8 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
 
   return (
     <section id="about" className="relative overflow-hidden bg-gradient-to-br from-teal-400 to-teal-500 px-4 py-20 md:py-32">
-      {/* Animated gradient background overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-teal-500 to-teal-400 opacity-30 animate-pulse" />
+      {/* Gradient background overlay - Removed animate-pulse for performance */}
+      <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-teal-500 to-teal-400 opacity-30" />
       <div className="absolute inset-0 bg-gradient-to-tr from-teal-300 via-teal-400 to-teal-500 opacity-20" />
       
       <div className="container relative z-10 mx-auto">
@@ -114,9 +114,9 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
             {/* Profile Photo Section */}
             <div className="relative mb-12">
               <div className="relative mx-auto max-w-sm">
-                {/* Floating decorative elements */}
-                <div className="absolute -left-4 -top-4 h-20 w-20 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-400 opacity-60 blur-xl animate-pulse" />
-                <div className="absolute -bottom-4 -right-4 h-32 w-32 rounded-full bg-gradient-to-br from-teal-400 to-teal-500 opacity-60 blur-xl animate-pulse delay-1000" />
+                {/* Floating decorative elements - Removed animate-pulse for performance */}
+                <div className="absolute -left-4 -top-4 h-20 w-20 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-400 opacity-60 blur-xl" />
+                <div className="absolute -bottom-4 -right-4 h-32 w-32 rounded-full bg-gradient-to-br from-teal-400 to-teal-500 opacity-60 blur-xl" />
                 
                 {/* Main photo container with creative border */}
                 <div className="relative">

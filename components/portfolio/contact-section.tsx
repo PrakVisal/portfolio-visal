@@ -74,10 +74,10 @@ export default function ContactSection({
 }: ContactSectionProps) {
   return (
     <section id="contact" className="relative overflow-hidden bg-white px-4 py-20 md:py-28">
-      {/* Animated background elements */}
+      {/* Animated background elements - Reduced blur for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 rounded-full blur-2xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-400/10 rounded-full blur-2xl"></div>
       </div>
 
       <div className="container mx-auto relative z-10">

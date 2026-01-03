@@ -1,4 +1,5 @@
 'use client'
+import { useMemo } from 'react'
 import AboutSection from '@/components/portfolio/about-section'
 import ContactSection from '@/components/portfolio/contact-section'
 import Footer from '@/components/portfolio/footer'
@@ -11,15 +12,28 @@ import { usePortfolioData } from '@/hooks/use-portfolio-data'
 import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import CircularGallery from './CircularGallery'
 import { downloadCV } from '@/utils/cv-download'
-import ChatWidget from './portfolio/chat-widget'
 
 const sections = ['home', 'about', 'projects', 'contact']
 
 export default function Portfolio() {
   const { portfolioData, isLoading } = usePortfolioData()
-  // const { skills } = useSkillsData()
   const activeSection = useScrollSpy(sections)
-  const { contactForm, isSubmitting, handleInputChange,errors, handleSubmit } = useContactForm()
+  const { contactForm, isSubmitting, handleInputChange, errors, handleSubmit } = useContactForm()
+
+  // Memoize gallery items to prevent recreation on every render
+  const galleryItems = useMemo(() => [
+    { image: 'IMG_4878.JPEG', text: '' },
+    { image: 'IMG_0115.JPG', text: '' },
+    { image: 'IMG_0243.JPG', text: '' },
+    { image: 'IMG_0673.JPG', text: '' },
+    { image: 'IMG_4721.JPG', text: '' },
+    { image: 'IMG_5092.JPG', text: '' },
+    { image: 'IMG_5454.JPG', text: '' },
+    { image: 'IMG_6837.JPG', text: '' },
+    { image: 'IMG_7101.JPG', text: '' },
+    { image: 'IMG_7732.JPG', text: '' },
+    { image: 'IMG_9792.DNG', text: '' },
+  ], [])
 
   if (isLoading || !portfolioData) {
     return <NewLoading />
@@ -30,7 +44,6 @@ export default function Portfolio() {
       <Navigation activeSection={activeSection} />
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
-      {/* <ServicesSection /> */}
       <ProjectsSection />
 
       <div style={{ height: '600px', position: 'relative' }}>
@@ -38,53 +51,9 @@ export default function Portfolio() {
           bend={1}
           textColor="black"
           borderRadius={0.05}
-          scrollEase={0.02}
-          items={[
-            {
-              image: `IMG_4878.JPEG`,
-              text: '',
-            },
-            {
-              image: `IMG_0115.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_0243.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_0673.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_4721.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_5092.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_5454.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_6837.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_7101.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_7732.JPG`,
-              text: '',
-            },
-            {
-              image: `IMG_9792.DNG`,
-              text: '',
-            },
-          ]}
+          scrollEase={0.03}
+          scrollSpeed={1.5}
+          items={galleryItems}
         />
       </div>
       <ContactSection
