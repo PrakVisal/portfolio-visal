@@ -123,7 +123,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
 
           <div className="relative top-10 order-1 flex justify-center md:order-2">
             <div className="relative">
-              <div className="relative z-10 bg-yellow-400">
+              <div className="relative z-10 bg-yellow-400 rounded-[30px]">
                 {/* <Image
                   src={'IMG_4949.PNG'}
                   alt="Visal - UI/UX Designer & Backend Developer"
