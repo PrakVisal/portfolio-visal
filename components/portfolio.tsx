@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import AboutSection from '@/components/portfolio/about-section'
 import ContactSection from '@/components/portfolio/contact-section'
 import Footer from '@/components/portfolio/footer'
+import GitHubActivitySection from '@/components/portfolio/github-activity-section'
 import HeroSection from '@/components/portfolio/hero-section'
 import NewLoading from './ui/loading-spinner'
 import Navigation from '@/components/portfolio/navigation'
@@ -13,7 +14,7 @@ import { useScrollSpy } from '@/hooks/use-scroll-spy'
 import CircularGallery from './CircularGallery'
 import { downloadCV } from '@/utils/cv-download'
 
-const sections = ['home', 'about', 'projects', 'contact']
+const sections = ['home', 'about', 'projects', 'github', 'contact']
 
 export default function Portfolio() {
   const { portfolioData, isLoading } = usePortfolioData()
@@ -45,6 +46,7 @@ export default function Portfolio() {
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <ProjectsSection />
+      <GitHubActivitySection />
 
       <div style={{ height: '600px', position: 'relative' }}>
         <CircularGallery

@@ -12,6 +12,7 @@ const navigationItems = [
   { href: '#home', label: 'Home' },
   { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
+  { href: '#github', label: 'GitHub' },
   { href: '#contact', label: 'Contact' },
 ]
 
