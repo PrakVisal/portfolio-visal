@@ -40,7 +40,7 @@ const ProjectCard = React.memo(function ProjectCard({ project }: { project: Proj
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent rounded-[40px]" />
         
         {/* Content Overlay */}
-        <div className="relative z-10 flex h-full flex-col justify-end p-8 text-white">
+        <div className="relative z-10 flex h-full flex-col justify-end p-4 md:p-8 text-white">
           <h3 className="mb-2 text-3xl font-bold drop-shadow-lg">
             {project.title}
           </h3>
@@ -87,7 +87,7 @@ export default function ProjectsSection() {
       technologies: 'Next.js, Spring Boot, PostgreSQL',
       github_url: undefined,
       live_url: undefined,
-      color: 'bg-purple-300',
+      color: 'bg-gray-100',
     },
     {
       id: 2,
@@ -97,12 +97,12 @@ export default function ProjectsSection() {
       technologies: 'Next.js, Spring Boot, PostgreSQL',
       github_url: undefined,
       live_url: undefined,
-      color: 'bg-blue-300',
+      color: 'bg-gray-100',
     },
   ], [])
 
   return (
-    <section id="projects" className="relative overflow-hidden bg-white dark:bg-gray-900 px-4 py-20 md:py-28 transition-colors">
+    <section id="projects" className="relative overflow-hidden bg-white dark:bg-gray-900 px-2 md:px-4 py-20 md:py-28 transition-colors">
       {/* Animated background elements - Reduced blur intensity for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 dark:bg-yellow-400/5 rounded-full blur-2xl"></div>
