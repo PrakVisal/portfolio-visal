@@ -94,15 +94,15 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
   }, [])
 
   return (
-    <section id="about" className="relative overflow-hidden bg-gradient-to-br from-teal-400 to-teal-500 px-4 py-20 md:py-32">
+    <section id="about" className="relative overflow-hidden bg-gradient-to-br from-teal-400 to-teal-500 dark:from-teal-600 dark:to-teal-700 px-4 py-20 md:py-32 transition-colors">
       {/* Gradient background overlay - Removed animate-pulse for performance */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-teal-500 to-teal-400 opacity-30" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-teal-300 via-teal-400 to-teal-500 opacity-20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-teal-500 to-teal-400 dark:from-teal-600 dark:via-teal-700 dark:to-teal-600 opacity-30 dark:opacity-40" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-teal-300 via-teal-400 to-teal-500 dark:from-teal-500 dark:via-teal-600 dark:to-teal-700 opacity-20 dark:opacity-30" />
       
       <div className="container relative z-10 mx-auto">
         {/* Header with animated icon */}
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-5xl font-black text-black md:text-7xl">
+          <h2 className="mb-4 text-5xl font-black text-black dark:text-white md:text-7xl">
             About Me
           </h2>
           <div className="mx-auto h-1 w-24 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-200" />
@@ -168,13 +168,13 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
             )}
 
             {/* Bio */}
-            <p className="mb-8 text-lg leading-relaxed text-black md:text-xl">
+            <p className="mb-8 text-lg leading-relaxed text-black dark:text-white md:text-xl">
               {portfolioData.description}
             </p>
 
             {/* Skills Tags */}
             <div className="mb-8">
-              <h3 className="mb-4 flex items-center gap-2 text-xl font-bold text-black">
+              <h3 className="mb-4 flex items-center gap-2 text-xl font-bold text-black dark:text-white">
                 <Sparkles className="h-5 w-5" />
                 What I Do
               </h3>
@@ -234,8 +234,8 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
           {/* Education Experience Section - Expanded */}
           <div className="order-1 lg:order-2">
             <div className="mb-8 flex items-center gap-3">
-              <GraduationCap className="h-8 w-8 text-black" />
-              <h3 className="text-3xl font-black text-black md:text-4xl">
+              <GraduationCap className="h-8 w-8 text-black dark:text-white" />
+              <h3 className="text-3xl font-black text-black dark:text-white md:text-4xl">
                 Education Experience
               </h3>
             </div>
@@ -261,16 +261,16 @@ export default function AboutSection({ portfolioData, onDownloadCV }: AboutSecti
 
                     {/* Content */}
                     <div>
-                      <h4 className="mb-4 text-2xl font-bold text-black md:text-3xl">
+                      <h4 className="mb-4 text-2xl font-bold text-black dark:text-white md:text-3xl">
                         {education.institution}
                       </h4>
                       
                       {education.courses.map((course, courseIdx) => (
-                        <div key={courseIdx} className="mb-6 last:mb-0 rounded-2xl border-2 border-black bg-white/50 p-4 shadow-lg">
-                          <h5 className="mb-3 text-lg font-semibold text-black md:text-xl">
+                        <div key={courseIdx} className="mb-6 last:mb-0 rounded-2xl border-2 border-black dark:border-gray-600 bg-white/50 dark:bg-gray-800/50 p-4 shadow-lg">
+                          <h5 className="mb-3 text-lg font-semibold text-black dark:text-white md:text-xl">
                             {course.name}
                           </h5>
-                          <ul className="space-y-2 text-sm leading-relaxed text-black md:text-base">
+                          <ul className="space-y-2 text-sm leading-relaxed text-black dark:text-gray-300 md:text-base">
                             {course.description.map((desc, descIdx) => (
                               <li key={descIdx} className="flex items-start">
                                 <span className={`mr-3 mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-teal-700`} />

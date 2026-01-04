@@ -41,7 +41,7 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
       <Navigation activeSection={activeSection} />
       <HeroSection portfolioData={portfolioData} onDownloadCV={downloadCV} />
       <AboutSection portfolioData={portfolioData} onDownloadCV={downloadCV} />

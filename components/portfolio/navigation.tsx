@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface NavigationProps {
   activeSection: string
@@ -19,37 +20,41 @@ const navigationItems = [
 export default function Navigation({ activeSection }: NavigationProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   return (
-    <nav className="fixed top-0 z-50 w-full rounded-b-3xl bg-black shadow-sm backdrop-blur-sm">
+    <nav className="fixed top-0 z-50 w-full rounded-b-3xl bg-black dark:bg-gray-900 shadow-sm backdrop-blur-sm border-b border-gray-800 dark:border-gray-700">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link
             href="#home"
-            className="text-2xl font-bold text-yellow-500 transition-colors hover:text-yellow-600"
+            className="text-2xl font-bold text-yellow-500 dark:text-yellow-400 transition-colors hover:text-yellow-600 dark:hover:text-yellow-300"
           ></Link>
           {/* Desktop nav */}
-          <div className="hidden space-x-12 md:flex">
+          <div className="hidden space-x-12 md:flex items-center">
             {navigationItems.map(item => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-2xl transition-colors hover:text-yellow-500 ${
+                className={`text-2xl transition-colors hover:text-yellow-500 dark:hover:text-yellow-400 ${
                   activeSection === item.href.substring(1)
-                    ? 'font-medium text-yellow-500'
-                    : 'text-white'
+                    ? 'font-medium text-yellow-500 dark:text-yellow-400'
+                    : 'text-white dark:text-gray-300'
                 }`}
               >
                 {item.label}
               </a>
             ))}
+            <ThemeToggle />
           </div>
-          {/* Hamburger for mobile */}
-          <button
-            className="rounded p-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 md:hidden"
-            aria-label="Open menu"
-            onClick={() => setMobileOpen(true)}
-          >
-            <Menu className="h-7 w-7 text-yellow-500" />
-          </button>
+          {/* Mobile menu button and theme toggle */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              className="rounded p-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              aria-label="Open menu"
+              onClick={() => setMobileOpen(true)}
+            >
+              <Menu className="h-7 w-7 text-yellow-500 dark:text-yellow-400" />
+            </button>
+          </div>
         </div>
       </div>
       {/* Mobile menu overlay */}

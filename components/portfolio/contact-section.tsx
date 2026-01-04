@@ -56,9 +56,9 @@ const FormInput = React.memo(function FormInput({
         value={value} 
         placeholder={placeholder} 
         onChange={onChange}
-        className={`bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all duration-300 hover:border-yellow-300 ${className}`}
+        className={`bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-yellow-400 dark:focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400/20 dark:focus:ring-yellow-500/20 transition-all duration-300 hover:border-yellow-300 dark:hover:border-yellow-600 ${className}`}
       />
-      {error && <p className="text-sm text-red-500 mt-1 ml-1 animate-pulse">{error}</p>}
+      {error && <p className="text-sm text-red-500 dark:text-red-400 mt-1 ml-1 animate-pulse">{error}</p>}
     </div>
   )
 })
@@ -73,23 +73,23 @@ export default function ContactSection({
   onSubmit,
 }: ContactSectionProps) {
   return (
-    <section id="contact" className="relative overflow-hidden bg-white px-4 py-20 md:py-28">
+    <section id="contact" className="relative overflow-hidden bg-white dark:bg-gray-900 px-4 py-20 md:py-28 transition-colors">
       {/* Animated background elements - Reduced blur for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 rounded-full blur-2xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-400/10 rounded-full blur-2xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 dark:bg-yellow-400/5 rounded-full blur-2xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-400/10 dark:bg-teal-400/5 rounded-full blur-2xl"></div>
       </div>
 
       <div className="container mx-auto relative z-10">
         {/* Header */}
         <div className="mb-16 text-center">
-          <div className="inline-flex items-center justify-center mb-4 w-20 h-20 rounded-full bg-yellow-400 shadow-lg">
-            <Hand className="h-10 w-10 text-black" />
+          <div className="inline-flex items-center justify-center mb-4 w-20 h-20 rounded-full bg-yellow-400 dark:bg-yellow-500 shadow-lg">
+            <Hand className="h-10 w-10 text-black dark:text-gray-900" />
           </div>
-          <p className="mb-3 text-lg md:text-xl text-gray-600 font-medium">
+          <p className="mb-3 text-lg md:text-xl text-gray-600 dark:text-gray-400 font-medium">
             Got a project in mind? Let's make it happen!
           </p>
-          <h2 className="text-4xl md:text-6xl font-black text-black mb-2">
+          <h2 className="text-4xl md:text-6xl font-black text-black dark:text-white mb-2">
             Let's Connect
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-teal-400 mx-auto rounded-full"></div>
@@ -98,14 +98,14 @@ export default function ContactSection({
         <div className="mx-auto grid max-w-6xl gap-8 md:gap-12 lg:grid-cols-2">
           {/* Left Side - Info Card */}
           <div className="order-2 lg:order-1">
-            <div className="h-full backdrop-blur-xl bg-white rounded-3xl border-2 border-gray-200 shadow-2xl p-8 md:p-10 hover:shadow-3xl hover:border-yellow-400 transition-all duration-500">
+            <div className="h-full backdrop-blur-xl bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-200 dark:border-gray-700 shadow-2xl p-8 md:p-10 hover:shadow-3xl hover:border-yellow-400 dark:hover:border-yellow-500 transition-all duration-500">
               <div className="mb-8">
-                <h3 className="text-3xl md:text-4xl font-black text-black mb-3">
+                <h3 className="text-3xl md:text-4xl font-black text-black dark:text-white mb-3">
                   {portfolioData.name}
                 </h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
                   I'm always down to collaborate on cool projects!{' '}
-                  <Rocket className="inline h-5 w-5 text-yellow-500 align-middle" />
+                  <Rocket className="inline h-5 w-5 text-yellow-500 dark:text-yellow-400 align-middle" />
                   <br />
                   Hit me up and let's build something amazing together.
                 </p>
@@ -113,12 +113,12 @@ export default function ContactSection({
 
               {/* Social Links */}
               <div className="mb-8">
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Connect With Me</p>
+                <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Connect With Me</p>
                 <div className="flex flex-wrap gap-4">
                   <a
                     href={portfolioData.socialLinks.instagram}
                     aria-label="Instagram"
-                    className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-black shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600"
+                    className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-black dark:bg-gray-700 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -127,7 +127,7 @@ export default function ContactSection({
                   <a
                     href={portfolioData.socialLinks.facebook}
                     aria-label="Facebook"
-                    className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-black shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 hover:bg-blue-600"
+                    className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-black dark:bg-gray-700 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 hover:bg-blue-600"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -136,16 +136,16 @@ export default function ContactSection({
                   <a
                     href={portfolioData.socialLinks.twitter}
                     aria-label="Twitter"
-                    className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-black shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 hover:bg-teal-400"
+                    className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-black dark:bg-gray-700 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 hover:bg-teal-400"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Twitter className="h-6 w-6 text-white group-hover:text-black group-hover:rotate-12 transition-all duration-300" />
+                    <Twitter className="h-6 w-6 text-white group-hover:text-black dark:group-hover:text-white group-hover:rotate-12 transition-all duration-300" />
                   </a>
                   <a
                     href={portfolioData.socialLinks.youtube}
                     aria-label="YouTube"
-                    className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-black shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 hover:bg-red-600"
+                    className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-black dark:bg-gray-700 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 hover:bg-red-600"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -155,13 +155,13 @@ export default function ContactSection({
               </div>
 
               {/* Location */}
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-yellow-50 border-2 border-yellow-200">
-                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-yellow-400 shadow-md">
-                  <MapPin className="h-6 w-6 text-black" />
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-200 dark:border-yellow-800">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-yellow-400 dark:bg-yellow-500 shadow-md">
+                  <MapPin className="h-6 w-6 text-black dark:text-gray-900" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</p>
-                  <p className="text-black font-semibold">{portfolioData.location}</p>
+                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Location</p>
+                  <p className="text-black dark:text-white font-semibold">{portfolioData.location}</p>
                 </div>
               </div>
             </div>
@@ -169,20 +169,20 @@ export default function ContactSection({
 
           {/* Right Side - Form */}
           <div className="order-1 lg:order-2">
-            <div className="backdrop-blur-xl bg-white rounded-3xl border-2 border-gray-200 shadow-2xl p-8 md:p-10 hover:shadow-3xl hover:border-yellow-400 transition-all duration-500">
+            <div className="backdrop-blur-xl bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-200 dark:border-gray-700 shadow-2xl p-8 md:p-10 hover:shadow-3xl hover:border-yellow-400 dark:hover:border-yellow-500 transition-all duration-500">
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <Mail className="h-6 w-6 text-yellow-500" />
-                  <h3 className="text-2xl font-black text-black">Send a Message</h3>
+                  <Mail className="h-6 w-6 text-yellow-500 dark:text-yellow-400" />
+                  <h3 className="text-2xl font-black text-black dark:text-white">Send a Message</h3>
                 </div>
-                <p className="text-gray-500 text-sm">Fill out the form below and I'll get back to you ASAP!</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">Fill out the form below and I'll get back to you ASAP!</p>
               </div>
 
               <form onSubmit={onSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="relative">
                     {!errors.firstName && (
-                      <Sparkles className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 pointer-events-none" />
+                      <Sparkles className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
                     )}
                     <FormInput
                       name="firstName"
@@ -195,7 +195,7 @@ export default function ContactSection({
                   </div>
                   <div className="relative">
                     {!errors.lastName && (
-                      <Target className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 pointer-events-none" />
+                      <Target className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
                     )}
                     <FormInput
                       name="lastName"
@@ -209,7 +209,7 @@ export default function ContactSection({
                 </div>
                 <div className="relative">
                   {!errors.email && (
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 pointer-events-none" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
                   )}
                   <FormInput
                     name="email"
@@ -222,7 +222,7 @@ export default function ContactSection({
                 </div>
                 <div className="relative">
                   {!errors.subject && (
-                    <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 pointer-events-none" />
+                    <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
                   )}
                   <FormInput
                     name="subject"
@@ -236,28 +236,28 @@ export default function ContactSection({
 
                 <div className="flex flex-col relative">
                   {!errors.message && (
-                    <Rocket className="absolute left-3 top-4 h-4 w-4 text-yellow-400 pointer-events-none" />
+                    <Rocket className="absolute left-3 top-4 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
                   )}
                   <Textarea
                     name="message"
                     placeholder="Your Message... Let's talk!"
                     rows={6}
-                    className={`bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-xl ${errors.message ? "px-4" : "pl-10"} pr-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all duration-300 hover:border-yellow-300 resize-none`}
+                    className={`bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-600 rounded-xl ${errors.message ? "px-4" : "pl-10"} pr-4 py-3 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-yellow-400 dark:focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400/20 dark:focus:ring-yellow-500/20 transition-all duration-300 hover:border-yellow-300 dark:hover:border-yellow-600 resize-none`}
                     value={contactForm.message}
                     onChange={onInputChange}
                   />
-                  {errors.message && <p className="text-sm text-red-500 mt-1 ml-1 animate-pulse">{errors.message}</p>}
+                  {errors.message && <p className="text-sm text-red-500 dark:text-red-400 mt-1 ml-1 animate-pulse">{errors.message}</p>}
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full group relative overflow-hidden bg-black text-yellow-400 font-bold py-6 rounded-xl shadow-lg hover:shadow-2xl hover:bg-yellow-400 hover:text-black transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full group relative overflow-hidden bg-black dark:bg-gray-700 text-yellow-400 dark:text-yellow-300 font-bold py-6 rounded-xl shadow-lg hover:shadow-2xl hover:bg-yellow-400 dark:hover:bg-yellow-500 hover:text-black dark:hover:text-gray-900 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isSubmitting}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     {isSubmitting ? (
                       <>
-                        <div className="h-5 w-5 animate-spin rounded-full border-3 border-yellow-400 border-t-transparent group-hover:border-black"></div>
+                        <div className="h-5 w-5 animate-spin rounded-full border-3 border-yellow-400 dark:border-yellow-500 border-t-transparent group-hover:border-black dark:group-hover:border-gray-900"></div>
                         <span>Sending...</span>
                       </>
                     ) : (

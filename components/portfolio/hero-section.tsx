@@ -44,12 +44,12 @@ const techLogos = [
 export default function HeroSection({ portfolioData, onDownloadCV }: HeroSectionProps) {
   const nameSplit = portfolioData.name.split(' ')
   return (
-    <section id="home" className="bg-gradient-to-br from-yellow-400 to-yellow-500 px-4 pb-8 pt-24">
+    <section id="home" className="bg-gradient-to-br from-yellow-400 to-yellow-500 dark:from-yellow-500 dark:to-yellow-600 px-4 pb-8 pt-24 transition-colors">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 items-center gap-x-8 gap-y-0 md:grid-cols-2">
           <div className="order-2 pt-20 md:order-1">
             <div className="flex items-center gap-2 pb-1">
-              <h1 className="text-3xl font-bold md:text-5xl">Creative</h1>
+              <h1 className="text-3xl font-bold md:text-5xl text-black dark:text-gray-900">Creative</h1>
               <RotatingText
                 texts={['Thinking', 'Coding', 'Solving', 'Living!']}
                 mainClassName="md:text-5xl font-bold text-3xl px-2 sm:px-2 md:px-3 bg-teal-400 text-white overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
@@ -64,10 +64,10 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
               />
             </div>
             {/* <h2 className="mb-2 text-5xl font-bold text-black">Hello,</h2> */}
-            <h1 className="mb-4 text-4xl font-bold text-black md:text-6xl">
-              I am <span className="text-teal-600">{nameSplit[1]}</span>
+            <h1 className="mb-4 text-4xl font-bold text-black dark:text-gray-900 md:text-6xl">
+              I am <span className="text-teal-600 dark:text-teal-700">{nameSplit[1]}</span>
             </h1>
-            <p className="mb-8 text-xl text-gray-700 md:text-2xl">{portfolioData.title}</p>
+            <p className="mb-8 text-xl text-gray-700 dark:text-gray-900 md:text-2xl">{portfolioData.title}</p>
 
             <div className="mb-8 flex flex-col gap-4 sm:flex-row">
               <Button className="bg-black text-white shadow-lg transition-all duration-700 hover:bg-yellow-500 hover:text-black hover:shadow-xl hover:outline-dashed">
@@ -150,7 +150,7 @@ export default function HeroSection({ portfolioData, onDownloadCV }: HeroSection
         </div>
       </div>
       <LogoLoop
-        className="mt-20 flex flex-col justify-end"
+        className="mt-20 flex flex-col justify-end text-black dark:text-gray-900"
         logos={techLogos}
         speed={85}
         direction="left"

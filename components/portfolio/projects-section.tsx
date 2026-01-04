@@ -102,23 +102,23 @@ export default function ProjectsSection() {
   ], [])
 
   return (
-    <section id="projects" className="relative overflow-hidden bg-white px-4 py-20 md:py-28">
+    <section id="projects" className="relative overflow-hidden bg-white dark:bg-gray-900 px-4 py-20 md:py-28 transition-colors">
       {/* Animated background elements - Reduced blur intensity for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 rounded-full blur-2xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-400/10 rounded-full blur-2xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 dark:bg-yellow-400/5 rounded-full blur-2xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-400/10 dark:bg-teal-400/5 rounded-full blur-2xl"></div>
       </div>
 
       <div className="container mx-auto relative z-10">
         {/* Header */}
         <div className="mb-16 text-center">
-          <div className="inline-flex items-center justify-center mb-4 w-20 h-20 rounded-full bg-yellow-400 shadow-lg">
-            <FolderKanban className="h-10 w-10 text-black" />
+          <div className="inline-flex items-center justify-center mb-4 w-20 h-20 rounded-full bg-yellow-400 dark:bg-yellow-500 shadow-lg">
+            <FolderKanban className="h-10 w-10 text-black dark:text-gray-900" />
           </div>
-          <p className="mb-3 text-lg md:text-xl text-gray-600 font-medium">
+          <p className="mb-3 text-lg md:text-xl text-gray-600 dark:text-gray-400 font-medium">
             Check out some of my recent work and creative projects!
           </p>
-          <h2 className="text-4xl md:text-6xl font-black text-black mb-2">
+          <h2 className="text-4xl md:text-6xl font-black text-black dark:text-white mb-2">
             Projects
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-teal-400 mx-auto rounded-full"></div>
