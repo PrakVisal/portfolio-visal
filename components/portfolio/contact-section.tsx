@@ -182,7 +182,7 @@ export default function ContactSection({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="relative">
                     {!errors.firstName && (
-                      <Sparkles className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
+                      <Sparkles className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-yellow-600 dark:text-yellow-400 pointer-events-none z-10 stroke-[1.5]" />
                     )}
                     <FormInput
                       name="firstName"
@@ -195,7 +195,7 @@ export default function ContactSection({
                   </div>
                   <div className="relative">
                     {!errors.lastName && (
-                      <Target className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
+                      <Target className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-yellow-600 dark:text-yellow-400 pointer-events-none z-10 stroke-[1.5]" />
                     )}
                     <FormInput
                       name="lastName"
@@ -209,7 +209,7 @@ export default function ContactSection({
                 </div>
                 <div className="relative">
                   {!errors.email && (
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-yellow-600 dark:text-yellow-400 pointer-events-none z-10 stroke-[1.5]" />
                   )}
                   <FormInput
                     name="email"
@@ -222,7 +222,7 @@ export default function ContactSection({
                 </div>
                 <div className="relative">
                   {!errors.subject && (
-                    <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
+                    <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-yellow-600 dark:text-yellow-400 pointer-events-none z-10 stroke-[1.5]" />
                   )}
                   <FormInput
                     name="subject"
@@ -236,7 +236,7 @@ export default function ContactSection({
 
                 <div className="flex flex-col relative">
                   {!errors.message && (
-                    <Rocket className="absolute left-3 top-4 h-4 w-4 text-yellow-400 dark:text-yellow-500 pointer-events-none" />
+                    <Rocket className="absolute left-3 top-4 h-5 w-5 text-yellow-600 dark:text-yellow-400 pointer-events-none z-10 stroke-[1.5]" />
                   )}
                   <Textarea
                     name="message"
